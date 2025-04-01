@@ -1,0 +1,9 @@
+tr:nth-child(even) {
+    background-color: red !important;
+  }
+  tr:nth-child(odd) {
+    background-color: #ffffff !important;
+  }
+.hai{
+    color: red;
+}

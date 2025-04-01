@@ -1,0 +1,93 @@
+.bg-primary {
+    background-color: #213454!important; /* Custom primary color */
+  }
+  
+  .bg-light {
+    background-color: transparent !important; /* Light row color */
+    color: #ffffff;
+  }
+  
+  thead {
+    background-color: transparent !important; /* Header dark blue */
+    padding: 10px;
+    border-top: 1px solid #ffffff;
+    border-bottom: 1px solid #ffffff;
+  }
+  
+  .btn-primary {
+    background-color: #007bff !important;
+  }
+  
+  .btn-outline-danger {
+    border: 2px solid red;
+    color: red;
+  }
+  
+  .btn-outline-danger:hover {
+    background-color: red;
+    color: white;
+  }
+
+  .bg-card-color {
+    background: #89a8be;
+  }
+
+  .card-border {
+    border-radius: 20px;
+  }
+
+  tbody, td, tfoot, th, thead, tr {
+    padding: 10px !important;
+  }
+  
+  .border {
+    border-radius: 20px !important;
+  }
+
+  /* Form Styles */
+  button.nav-link {
+    color: #000000;
+}
+
+button.nav-link :hover {
+    color: #000000;
+}
+
+.btn-bg-color {
+    background: #056CA5;
+}
+
+.btn-border {
+    border-radius: 20px;
+}
+
+.input-border {
+    border-radius: 20px;
+    outline: 1px solid black !important; /* Black outline */
+}
+
+.total-weight-section {
+    font-size: 12px;
+}
+
+.btn-border {
+    outline: 1px solid black !important; /* Black outline */
+}
+
+.btn-border-close {
+    background: #056CA5;
+    outline: 1px solid white !important; /* Black outline */
+    color : #fff
+}
+
+.btn-border-attachment1 {
+    outline: 2px solid #056CA5 !important; /* Black outline */
+}
+
+.btn-border-attachment2 {
+    outline: 2px solid #ea0202 !important; /* Black outline */
+}
+
+.card-color {
+  background-color: #203354 !important;
+}

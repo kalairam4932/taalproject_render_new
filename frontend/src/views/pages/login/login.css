@@ -1,0 +1,86 @@
+.bg-container{
+    position: relative;
+    width: 100vw;
+    height: 100vh;
+    background-image: url("../../../../public/image/taallogin.jpg");
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    
+}
+.bg-container::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.4); /* Dark semi-transparent overlay */
+    backdrop-filter: blur(1px); /* Blurs the background */
+}
+
+.login-box {
+    position: relative; /* Ensures it stays above the background */
+    z-index: 1; /* Places it above the blurred background */
+    background: rgba(255, 255, 255, 0.2); 
+    backdrop-filter: blur(1px); 
+    padding: 30px;
+    border-radius: 10px;
+    /* box-shadow: 0 0 10px rgba(0, 0, 0, 0.2); */
+    box-shadow: rgba(204, 230, 255, 0.4) 5px 5px, rgba(179, 218, 255, 0.3) 10px 10px, rgba(128, 193, 255, 0.2) 15px 15px, rgba(102, 181, 255, 0.1) 20px 20px, rgba(0, 119, 230, 0.05) 25px 25px;
+    
+    width: 350px;
+    /* text-align: center; */
+
+}
+
+/* Input fields */
+.logininputone {
+    width: 100%;
+    padding: 10px;
+    
+    border: 1px solid #ccc; /* Default border */
+    border-radius: 15px;
+    font-size: 16px;
+    margin-bottom: 10px;
+    outline: none;
+    transition: border-color 0.5s ease-in-out, box-shadow 0.5s ease-in-out;
+  }
+  .logininputone:focus {
+    border-color: #2d79f3; 
+    }
+
+  .logininputtwo{
+    width: 100%;
+    padding: 10px;
+
+    border: 1px solid #ccc; /* Default border */
+    border-radius: 15px;
+    font-size: 16px;
+    margin-bottom: 5px;
+    outline: none;
+    transition: border-color 0.5s ease-in-out, box-shadow 0.5s ease-in-out;
+  }
+  .logininputtwo:focus {
+    border-color: #2d79f3; 
+    }
+  /* Button */
+  .login-box button {
+    width: 50%;
+    padding: 5px;
+
+    background: #0056b3;
+    color: white;
+    border: none;
+    border-radius: 10px;
+    font-size: 16px;
+    cursor: pointer;
+    
+  }
+  
+  .login-box button:hover {
+    background: #007bff;
+  }

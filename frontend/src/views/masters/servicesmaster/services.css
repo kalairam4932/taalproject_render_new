@@ -1,0 +1,149 @@
+@import 'bootstrap-icons/font/bootstrap-icons.css';
+.bg-card-color{
+    background: #89a8be;
+  }
+  
+  .bg-light {
+    background-color: transparent !important; /* Light row color */
+    color: #ffffff;
+  }
+  
+  thead {
+    background-color: transparent !important; /* Header dark blue */
+    padding: 10px;
+    border-top: 1px solid #ffffff;
+    border-bottom: 1px solid #ffffff;
+  }
+  
+  .bg-primaryone{
+    background-color: #213454 !important;
+  }
+  
+  .btn-outline-danger {
+    border: 2px solid red;
+    color: red;
+  }
+  
+  .btn-outline-danger:hover {
+    background-color: red;
+    color: white;
+  }
+  
+  .bg-card-color {
+    background: #89a8be;
+  }
+  
+  .card-border {
+    border-radius: 20px;
+  }
+  
+  tbody, td, tfoot, th, thead, tr {
+    padding: 10px !important;
+  }
+  
+  .border{
+    border-radius: 10px !important;
+  }
+  
+  .ownborder{
+    border-radius: 10px !important;
+    border: 1px solid #dbdfe6;
+
+  }
+
+.servicetable{
+    height: 180px;
+}
+.tabletr{
+    display: flex;
+    gap: 80px;
+    margin-bottom: 5px;
+}
+
+/* table design */
+
+  
+.input {
+    width: 100%; /* Ensures proper width */
+    padding: 0.5px;
+    border: 1px solid #ccc; /* Default border */
+    border-radius: 5px;
+    outline: none;
+    transition: border-color 0.5s ease-in-out, box-shadow 0.5s ease-in-out;
+    max-width: 250px;
+    text-indent: 1px;
+  }
+  
+  .input:focus,
+  .input:hover {
+    border-color: #2d79f3; 
+    
+  }
+
+
+
+  .rhtable {
+    border-collapse: collapse;
+    width: 80%;
+  }
+  
+  .rhtable th, 
+  .rhtable td {
+      text-align: left;
+      padding: 4px !important;
+      border: 1px solid black;
+  }
+  
+  .rhtable tr:nth-child(even) {
+    background-color: #f2f2f2;
+  }
+  
+  .rhtable th {
+    background-color: #04AA6D;
+    color: white;
+  }
+
+  .tableinput {
+    width: 100%;
+    box-sizing: border-box;
+    border: 1px solid white;
+    padding: 4px;
+    outline: none;
+    transition: border-color 0.5s ease-in-out, box-shadow 0.5s ease-in-out;
+   
+  }
+
+  .tableinput:focus {
+    border-color: #2d79f3; 
+    
+  }
+
+
+
+  /* From Uiverse.io by absoluteSTrange */ 
+.btnrh {
+    padding: 2px 15px;
+    border-radius: 10px;
+    border: 0;
+    background-color: rgb(255, 56, 86);
+    letter-spacing: 1.5px;
+    font-size: 15px;
+    transition: all 0.3s ease;
+    box-shadow: rgb(201, 46, 70) 0px 10px 0px 0px;
+    color: hsl(0, 0%, 100%);
+    cursor: pointer;
+  }
+  
+  .btnrh:hover {
+    box-shadow: rgb(201, 46, 70) 0px 7px 0px 0px;
+  }
+  
+  .btnrh:active {
+    background-color: rgb(255, 56, 86);
+    /*50, 168, 80*/
+    box-shadow: rgb(201, 46, 70) 0px 0px 0px 0px;
+    transform: translateY(5px);
+    transition: 200ms;
+  }
+  
+

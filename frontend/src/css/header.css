@@ -1,0 +1,17 @@
+.input-group .form-control:focus {
+    border-color: #081f3e !important;  /* Change border color */
+    box-shadow: 0 0 5px rgba(8,31,62,255) !important; /* Add a glow effect */
+  }
+  
+  .input-group .input-group-text {
+    background-color: #081f3e !important; /* Change background color */
+    color: white !important; /* Change icon color */
+  }
+  
+  .input-group .form-control:hover {
+    border-color: #081f3e  !important;
+  }
+  
+
+  
+  

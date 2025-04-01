@@ -1,0 +1,47 @@
+@import 'bootstrap-icons/font/bootstrap-icons.css';
+
+.bg-primary {
+    background-color: #213454!important; /* Custom primary color */
+  }
+  
+  .bg-light {
+    background-color: transparent !important; /* Light row color */
+    color: #ffffff;
+  }
+  
+  thead {
+    background-color: transparent !important; /* Header dark blue */
+    padding: 10px;
+    border-top: 1px solid #ffffff;
+    border-bottom: 1px solid #ffffff;
+  }
+  
+  .btn-primary {
+    background-color: #007bff !important;
+  }
+  
+  .btn-outline-danger {
+    border: 2px solid red;
+    color: red;
+  }
+  
+  .btn-outline-danger:hover {
+    background-color: red;
+    color: white;
+  }
+
+  .bg-card-color {
+    background: #89a8be;
+  }
+
+  .card-border {
+    border-radius: 20px;
+  }
+
+  tbody, td, tfoot, th, thead, tr {
+    padding: 10px !important;
+  }
+  
+  .border {
+    border-radius: 20px !important;
+  }
