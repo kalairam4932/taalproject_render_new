@@ -91,13 +91,13 @@ const AISForm = () => {
       };
 
     return (
-        <div className='aircraft-status border p-2 px-4 rounded shadow'>
+        <div className='aircraft-status border p-2 px-4  mt-4 rounded shadow'>
             <form onSubmit={handleSubmit}>
-                <div className='row'>
+                <div className='row pt-3 '>
                   <div className='col-xs-12 col-sm-12 col-md-12 col-lg-4 col-xl-4 col-xxl-4'>
                     <h6 className="btn-bg-color text-white text-center btn-border">Monitoring Details</h6>
                     <div className='row '>
-                        <div className='col-xs-4 col-sm-4 col-md-4 col-lg-4 col-xl-4 col-xxl-4'>
+                        {/* <div className='col-xs-4 col-sm-4 col-md-4 col-lg-4 col-xl-4 col-xxl-4'>
                             <Form.Group >
                                 <label className='mt-2'>Insp Type</label>
                             </Form.Group>
@@ -145,11 +145,101 @@ const AISForm = () => {
                             <Form.Group className='mt-2'>
                                 <textarea name='description' rows='2' className='form-control p-0 input-border' value={formData.description} onChange={handleChange} />
                             </Form.Group>
+                        </div> */}
+
+                         {/* kalairam changes */}
+                        <div className='col-12 mb-2 '>
+                        <div className='row mt-1 '>
+                          <div className='col-4  d-flex justify-content-end'>
+                              <label htmlFor="InspType">Insp Type</label>
+                          </div>
+                          <div className='col-7 '>
+                          <input type="text" className="aisinput " id='InspType' name='InspType'  autoComplete="off" onChange={handleChange} />
+                              
+                          </div>
+                    
+
+                        </div>
+
+                        <div className='row mt-1'>
+                          <div className='col-4  d-flex justify-content-end'>
+                              <label htmlFor="monitorType">Monitor Type</label>
+                          </div>
+                          <div className='col-7'>
+                          <input type="text" className="aisinput " id='monitorType' name='monitorType'  autoComplete="off" onChange={handleChange} />
+                              
+                          </div>
+                    
+
+                        </div>
+
+
+
+
+
+
+                        <div className='row mt-1'>
+                          <div className='col-4  d-flex justify-content-end'>
+                              <label htmlFor="ATAChapter">ATA Chapter</label>
+                          </div>
+                          <div className='col-7'>
+                          <select className="aisinput" name="ATAChapter" id="ATAChapter" value={formData.ATAChapter} onChange={handleChange}>
+                                <option value="" disabled>Select...</option>
+                                  {isLoading ? (
+                                    <option value="" disabled>Loading.......</option>
+                                  ) : (
+                                    ATAChapter?.length > 0 ? (
+                                      ATAChapter.map((data, index) => (
+                                        <option key={index} value={data.ATAChapter}>
+                                          {data.ataName}
+                                        </option>
+                                      ))
+                                    ) : (
+                                      <option value="" disabled>No Data Available</option>
+                                    )
+                                  )}
+                            </select>
+                              
+                          </div>
+                    
+
+                        </div>
+
+
+                        <div className='row mt-1'>
+                          <div className='col-4  d-flex justify-content-end'>
+                              <label htmlFor="reference">Reference</label>
+                          </div>
+                          <div className='col-7'>
+                          <input type="text" className="aisinput" id='reference' name='reference'  autoComplete="off" onChange={handleChange} />
+                              
+                          </div>
+                    
+
+                        </div>
+                        <div className='row mt-1'>
+                          <div className='col-4  d-flex justify-content-end'>
+                              <label htmlFor="Description">Description</label>
+                          </div>
+                          <div className='col-7'>
+                          <textarea type="text" className="aisinput" id="Description" rows="2"  name='description'  autoComplete="off" onChange={handleChange} />
+                              
+                          </div>
+                    
+
+                        </div>
+
+
+
+
+                        
+
+
                         </div>
                     </div>
                     <div className='row'>
                       <h6 className="btn-bg-color text-white text-center btn-border">Done On Details</h6>
-                        <div className='col-xs-4 col-sm-4 col-md-4 col-lg-4 col-xl-4 col-xxl-4'>
+                        {/* <div className='col-xs-4 col-sm-4 col-md-4 col-lg-4 col-xl-4 col-xxl-4'>
                             <Form.Group >
                                 <label className='mt-2'>Done On</label>
                             </Form.Group>
@@ -198,13 +288,113 @@ const AISForm = () => {
                             <Form.Group className='mt-2'>
                               <textarea name='remarks' className='form-control p-0 input-border' rows='2' value={formData.remarks} onChange={handleChange} />
                             </Form.Group>
+                        </div> */}
+
+                          {/* kalairam design */}
+                        <div className='col-12'>
+                        <div className='row mt-1'>
+                          <div className='col-4  d-flex justify-content-end'>
+                              <label htmlFor="doneon">Done On</label>
+                          </div>
+                          <div className='col-7'>
+                          <input type="date" className="aisinput" id='doneon' name='doneon'  autoComplete="off" onChange={handleChange} />
+                              
+                          </div>
+                        </div>
+                        <div className='row mt-1'>
+                          <div className='col-4  d-flex justify-content-end'>
+                              <label htmlFor="WorkOrderNo">W.O. No</label>
+                          </div>
+                          <div className='col-7'>
+                          <input type="text" className="aisinput" id='WorkOrderNo' name='WorkOrderNo'  autoComplete="off" onChange={handleChange} />
+                              
+                          </div>
+                        </div>
+                        <div className='row mt-1'>
+                          <div className='col-4  d-flex justify-content-end'>
+                              <label htmlFor="LicenseNo">License No</label>
+                          </div>
+                          <div className='col-7'>
+                          <select className="aisinput" name="LicenseNo" id="LicenseNo"  value={formData.LicenseNo} onChange={handleChange}>
+                                <option value="" disabled>Select...</option>
+                                  {isLoading ? (
+                                    <option value="" disabled>Loading.......</option>
+                                  ) : (
+                                    ATAChapter?.length > 0 ? (
+                                      ATAChapter.map((data, index) => (
+                                        <option key={index} value={data.ATAChapter}>
+                                          {data.ataName}
+                                        </option>
+                                      ))
+                                    ) : (
+                                      <option value="" disabled>No Data Available</option>
+                                    )
+                                  )}
+                            </select>
+                              
+                          </div>
+                    
+
+                        </div>
+                        <div className='row mt-1'>
+                          <div className='col-4  d-flex justify-content-end'>
+                              <label htmlFor="Place">Place</label>
+                          </div>
+                          <div className='col-7'>
+                          <select className="aisinput" name="Place" id="Place" value={formData.Place} onChange={handleChange}>
+                                <option value="" disabled>Select...</option>
+                                  {isLoading ? (
+                                    <option value="" disabled>Loading.......</option>
+                                  ) : (
+                                    ATAChapter?.length > 0 ? (
+                                      ATAChapter.map((data, index) => (
+                                        <option key={index} value={data.ATAChapter}>
+                                          {data.ataName}
+                                        </option>
+                                      ))
+                                    ) : (
+                                      <option value="" disabled>No Data Available</option>
+                                    )
+                                  )}
+                            </select>
+                              
+                          </div>
+                    
+
+                        </div>
+
+                        <div className='row mt-1'>
+                          <div className='col-4  d-flex justify-content-end'>
+                              <label htmlFor="actualManHours">Act. Man Hrs</label>
+                          </div>
+                          <div className='col-7'>
+                          <input type="text" className="aisinput" id='actualManHours' name='actualManHours'  autoComplete="off" onChange={handleChange} />
+                              
+                          </div>
+                        </div>
+                        <div className='row mt-1'>
+                          <div className='col-4  d-flex justify-content-end'>
+                              <label htmlFor="remarks">Remarks</label>
+                          </div>
+                          <div className='col-7'>
+                          <textarea type="text" className="aisinput" id="remarks" rows="2"  name='remarks'  autoComplete="off" onChange={handleChange} />
+                              
+                          </div>
+                    
+
+                        </div>
+
+
+
                         </div>
                     </div>
                   </div>
+                   {/* second col */}
                   <div className='col-xs-12 col-sm-12 col-md-12 col-lg-4 col-xl-4 col-xxl-4'>
+                  <h6 className="btn-bg-color text-white text-center btn-border">Document Information Of the Engine</h6>
                     <div className='row'>
-                        <h6 className="btn-bg-color text-white text-center btn-border">Document Information Of the Engine</h6>
-                        <div className='col-xs-4 col-sm-4 col-md-4 col-lg-4 col-xl-4 col-xxl-4'>
+
+                        {/* <div className='col-xs-4 col-sm-4 col-md-4 col-lg-4 col-xl-4 col-xxl-4'>
                             <Form.Group >
                                 <label className='mt-2'>Revision No</label>
                             </Form.Group>
@@ -237,16 +427,70 @@ const AISForm = () => {
                             <Form.Group className='mt-2'>
                                 <input type="file" name='attachFile' className='form-control p-0 input-border' value={formData.attachFile} onChange={handleChange} />
                             </Form.Group>
+                        </div> */}
+
+                        <div className='col-12'>
+                        <div className='row mt-1'>
+                            <div className='col-4  d-flex justify-content-end'>
+                                <label htmlFor="RevisionNo">Revision No</label>
+                            </div>
+                            <div className='col-7'>
+                            <input type="text" className="aisinput" id='RevisionNo' name='RevisionNo'  autoComplete="off" onChange={handleChange} />
+                                
+                            </div>
                         </div>
-                      </div>
+
+                        <div className='row mt-1'>
+                            <div className='col-4  d-flex justify-content-end'>
+                                <label htmlFor="pageNo">Page No</label>
+                            </div>
+                            <div className='col-7'>
+                            <input type="text" className="aisinput" id='pageNo' name='pageNo'  autoComplete="off" onChange={handleChange} />
+                                
+                            </div>
+                        </div>
+
+                        <div className='row mt-1'>
+                            <div className='col-4  d-flex justify-content-end'>
+                                <label htmlFor="BookNo">Book No</label>
+                            </div>
+                            <div className='col-7'>
+                            <input type="text" className="aisinput" id='BookNo' name='BookNo'  autoComplete="off" onChange={handleChange} />
+                                
+                            </div>
+                        </div>
+                        <div className='row mt-1'>
+                            <div className='col-4  d-flex justify-content-end'>
+                                <label htmlFor="sourceDoc">Source Doc</label>
+                            </div>
+                            <div className='col-7'>
+                            <input type="text" className="aisinput" id='sourceDoc' name='sourceDoc'  autoComplete="off" onChange={handleChange} />
+                                
+                            </div>
+                        </div>
+                        <div className='row mt-1'>
+                            <div className='col-4  d-flex justify-content-end'>
+                                <label htmlFor="attachFile">Attach file</label>
+                            </div>
+                            <div className='col-7'>
+                            <input type="file" className="aisinput" id='attachFile' name=''  autoComplete="off" onChange={handleChange} />
+                                
+                            </div>
+                        </div>
+
+                        </div>
+
+                    </div>
+                      
+                    <h6 className="btn-bg-color text-white text-center  btn-border mt-4 mx-1 ">Elapsed and Remaining Values</h6>
                       <div className='row'>
-                        <h6 className="btn-bg-color text-white text-center btn-border mt-4 mx-1">Elapsed and Remaining Values</h6>
+
                         <Table striped bordered hover className='mx-2 my-1 rounded-3'>
                           <thead >
                             <tr className='btn-bg-color text-center'>
                                 <th>Periods</th>
                                 <th>Frequency</th>
-                                <th>Elapsed Value</th>
+                                <th>Elapsed Val</th>
                                 <th>Remaining</th>
                             </tr>
                           </thead>
@@ -261,8 +505,10 @@ const AISForm = () => {
                         </Table>
                         {/* <p className='fw-bold'>Please Note:Ellapsed and Remaining Values for Days/Months/Years will be in Days</p> */}
                       </div>
+
+                      <h6 className="btn-bg-color text-white text-center btn-border mx-1 mt-2">Airframe Values</h6>
                       <div className='row'>
-                        <h6 className="btn-bg-color text-white text-center btn-border mx-1">Airframe Values</h6>
+
                         <Table striped bordered hover className='my-2 mx-2 rounded-3'>
                           <thead >
                             <tr className='btn-bg-color text-center'>
@@ -283,31 +529,59 @@ const AISForm = () => {
                         </Table>
                       </div>
                   </div>
+
+                  {/* thrid col */}
                   <div className='col-xs-12 col-sm-12 col-md-12 col-lg-4 col-xl-4 col-xxl-4'>
+                  <div className='col-12'>
+                      <div className='row mt-1'>
+                            <div className='col-4  d-flex justify-content-end'>
+                                <label htmlFor="extensionDate">Extension Date</label>
+                            </div>
+                            <div className='col-7'>
+                            <input type="date" className="aisinput" id='extensionDate' name='extensionDate'  autoComplete="off" onChange={handleChange} />
+                                
+                            </div>
+                      </div>
+                      <div className='row mt-1'>
+                          <div className='col-4  d-flex justify-content-end'>
+                              <label htmlFor="extensionRemark">Remark</label>
+                          </div>
+                          <div className='col-7'>
+                          <textarea type="text" className="aisinput" id="extensionRemark" rows="2"  name='extensionRemark'  autoComplete="off" onChange={handleChange} />
+                              
+                          </div>
                     
+
+                      </div>
+
+
+                      
+                      </div>
                     <div className='row'>
                       <div className='col-xs-4 col-sm-4 col-md-4 col-lg-4 col-xl-4 col-xxl-4'>
-                        <Form.Group >
-                          <label className='mt-4 total-weight-section'>Extension Date</label>
+                        {/* <Form.Group >
+                          <label className='mt-4 '>Extension Date</label>
                         </Form.Group>
                         <Form.Group >
-                          <label className='mt-4 total-weight-section'>Remark</label>
-                        </Form.Group>
+                          <label className='mt-4 '>Remark</label>
+                        </Form.Group> */}
                         <Form.Group >
-                          <label className='mt-3 total-weight-section'>Applicable (Un-check if not required to be Monitored from now onwards ..)</label>
+                          <label className='mt-3 total-weight-section text-end'>Applicable (Un-check if not required to be Monitored from now onwards ..)</label>
                         </Form.Group>
                       </div>
                       <div className='col-xs-7 col-sm-7 col-md-7 col-lg-7 col-xl-7 col-xxl-7'>
-                        <Form.Group className='mt-3'>
+                        {/* <Form.Group className='mt-3'>
                           <input type="date" name='extensionDate' className='form-control p-0 input-border' value={formData.extensionDate} onChange={handleChange} />
                         </Form.Group>
                         <Form.Group className='mt-2'>
                           <textarea name='extensionRemark' className='form-control p-0 input-border' rows='2' value={formData.extensionRemark} onChange={handleChange} />
-                        </Form.Group>
+                        </Form.Group> */}
                         <Form.Group className='mt-2 mb-5'>
                           <input type="checkbox" className='' name='applicable' label="Applicable (Un-check if not required to be Monitored from now onwards ..)" value={formData.applicable} onChange={handleChange} />
                         </Form.Group>
                       </div>
+
+
                     </div>
                   </div>
                 </div>

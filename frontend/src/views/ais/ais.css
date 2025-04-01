@@ -88,3 +88,26 @@ button.nav-link :hover {
 .btn-border-attachment2 {
     outline: 2px solid #ea0202 !important; /* Black outline */
 }
+
+
+
+
+/* kalairam css */
+
+.aisinput {
+  width: 100%; /* Ensures proper width */
+  padding: 0.1px;
+  border: 1px solid #ccc; /* Default border */
+  border-radius: 7px;
+  outline: none;
+  transition: border-color 0.5s ease-in-out, box-shadow 0.5s ease-in-out;
+  max-width: 250px;
+  text-indent: 1px;
+  padding-left: 5px;
+}
+
+.aisinput:focus,
+.aisinput:hover {
+  border-color: #2d79f3; 
+  
+}

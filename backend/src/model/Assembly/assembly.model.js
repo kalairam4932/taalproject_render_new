@@ -10,7 +10,7 @@ const InspectionSchema = new mongoose.Schema({
   WorkOrderNo: { type: String, required: false },
   LicenseNo: { type: String, required: false },
   Place: { type: String, required: false },
-  actualManHours: { type: Number },
+  actualManHours: { type: String },
   remarks: { type: String },
   RevisionNo: { type: String },
   pageNo: { type: String },

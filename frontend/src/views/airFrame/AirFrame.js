@@ -40,7 +40,7 @@ const AirFrame = () => {
         queryKey: ["getairframedatakey"],
         queryFn: async () => {
           try {
-            const res = await fetch("https://taal.onrender.com/api/aircraft/getairframe", {
+            const res = await fetch(`${base_url}/api/aircraft/getairframe`, {
               method: "GET",
               credentials: "include",
               headers: {
