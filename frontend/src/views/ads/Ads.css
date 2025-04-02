@@ -1,113 +1,13 @@
-@import 'bootstrap-icons/font/bootstrap-icons.css';
-.bg-primary {
-    background-color: #213454!important; /* Custom primary color */
+.loader {
+    width: 40px;
+    height: 40px;
+    border: 5px solid #ccc;
+    border-top-color: green;
+    border-radius: 50%;
+    animation: spin 1s linear infinite;
   }
   
-  .bg-light {
-    background-color: transparent !important; /* Light row color */
-    color: #ffffff;
+  @keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
   }
-  
-  thead {
-    background-color: transparent !important; /* Header dark blue */
-    padding: 10px;
-    border-top: 1px solid #ffffff;
-    border-bottom: 1px solid #ffffff;
-  }
-  
-  .btn-primary {
-    background-color: #007bff !important;
-  }
-  
-  .btn-outline-danger {
-    border: 2px solid red;
-    color: red;
-  }
-  
-  .btn-outline-danger:hover {
-    background-color: red;
-    color: white;
-  }
-
-  .bg-card-color {
-    background: #89a8be;
-  }
-
-  .card-border {
-    border-radius: 20px;
-  }
-
-  tbody, td, tfoot, th, thead, tr {
-    padding: 10px !important;
-  }
-  
-  .border {
-    border-radius: 20px !important;
-  }
-
-  /* Form Styles */
-  button.nav-link {
-    color: #000000;
-}
-
-button.nav-link :hover {
-    color: #000000;
-}
-
-.btn-bg-color {
-    background: #056CA5;
-}
-
-.btn-border {
-    border-radius: 20px;
-}
-
-.input-border {
-    border-radius: 5px;
-    /* outline: 1px solid black !important; */
-}
-
-.total-weight-section {
-    font-size: 12px;
-}
-
-.btn-border {
-    outline: 1px solid black !important; /* Black outline */
-}
-
-.btn-border-close {
-    background: #056CA5;
-    outline: 1px solid white !important; /* Black outline */
-    color : #fff
-}
-
-.btn-border-attachment1 {
-    outline: 2px solid #056CA5 !important; /* Black outline */
-}
-
-.btn-border-attachment2 {
-    outline: 2px solid #ea0202 !important; /* Black outline */
-}
-
-
-
-
-/* kalairam css */
-
-.aisinput {
-  width: 100%; /* Ensures proper width */
-  padding: 0.1px;
-  border: 1px solid #ccc; /* Default border */
-  border-radius: 7px;
-  outline: none;
-  transition: border-color 0.5s ease-in-out, box-shadow 0.5s ease-in-out;
-  max-width: 250px;
-  text-indent: 1px;
-  padding-left: 5px;
-}
-
-.aisinput:focus,
-.aisinput:hover {
-  border-color: #2d79f3; 
-  
-}

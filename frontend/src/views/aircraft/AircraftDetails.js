@@ -96,7 +96,7 @@ const AircraftDetails = () => {
               ))
             ) : (
               <tr>
-                <td colSpan="9" className="text-center text-danger">Loading....</td>
+                <td colSpan="9" className="text-center "><b>Loading....</b></td>
               </tr>
             )}
           </tbody>
