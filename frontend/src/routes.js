@@ -93,6 +93,11 @@ const SERVICETABLE  = React.lazy(()=>import('./views/masters/servicesmaster/Serv
 const SERVICEUPDATE  = React.lazy(()=>import('./views/masters/servicesmaster/ServicesUpdate'))
 
 
+//ASSEMBLE DIRECTIVE STATUS
+const ADSFORM  = React.lazy(()=>import('./views/ads/AdsForm'))
+const ADSTABLE  = React.lazy(()=>import('./views/ads/AdsTable'))
+
+
 
 // Icons
 const CoreUIIcons = React.lazy(() => import('./views/icons/coreui-icons/CoreUIIcons'))
@@ -212,6 +217,11 @@ const routes = [
   {path : '/SERVICEFORM',name:SERVICEFORM, element :SERVICEFORM },
   {path : '/SERVICETABLE',name:SERVICETABLE, element :SERVICETABLE },
   {path : '/SERVICEUPDATE',name:SERVICEUPDATE, element :SERVICEUPDATE },
+
+  //ads
+  {path : '/ADSFORM',name:ADSFORM, element :ADSFORM },
+  {path : '/ADSTABLE',name:ADSTABLE, element :ADSTABLE },
+
 
   
   

@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react'
 import { Form, Button, Container, Row, Col, Table } from "react-bootstrap";
-import './ais.css'
+import './ads.css'
 import { useMutation, useQuery } from '@tanstack/react-query';
 import toast from 'react-hot-toast';
 import axios from 'axios';
@@ -33,33 +33,17 @@ const AISForm = () => {
       airframeRemaining:'',
       extensionDate:'',
       extensionRemark:'',
-      Remainingdays:'',
       applicable:false,
 
       })
     
       const handleChange = (e) => {
-        const { name, value, type, checked } = e.target;
-    
-        let updatedData = {
-            ...formData,
-            [name]: type === "checkbox" ? checked : value,
-        };
-    
-        if (name === "airframeRemaining") {
-            const selectedDate = new Date(value);
-            const currentDate = new Date();
-    
-            // Calculate difference in days
-            const diffTime = selectedDate - currentDate;
-            const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24)); // Convert to days
-    
-            updatedData.Remainingdays = diffDays;
-        }
-    
-        setFormData(updatedData);
-    };
-    
+          const {name,value,type,checked}= e.target;
+          setFormData({
+              ...formData,
+              [name]: type === "checkbox" ? checked : value,
+            });
+      }
 
       // Get Data Id 
       // ✅ Fetch existing data if editing (ID exists)
@@ -515,7 +499,7 @@ const AISForm = () => {
                               <td>Months</td>
                               <td>3</td>
                               <td>0</td>
-                              <td>{formData.Remainingdays}</td>
+                              <td>90</td>
                           </tr>
                           </tbody>
                         </Table>
@@ -539,6 +523,7 @@ const AISForm = () => {
                               <td>Date</td>
                               <td><input type="date" style={{width:'70px'}} name='airframeFrequency' className='form-control p-0 input-border' value={formData.airframeFrequency}  onChange={handleChange} /></td>
                               <td><input type="text" style={{width:'70px'}} name='airframeElapsedValue' className='form-control p-0 input-border' value={formData.airframeElapsedValue}  onChange={handleChange} /></td>
+                              
                               <td><input type="date" style={{width:'70px'}} name='airframeRemaining' className='form-control p-0 input-border' value={formData.airframeRemaining}  onChange={handleChange} /></td>
                           </tr>
                           </tbody>

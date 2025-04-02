@@ -124,9 +124,9 @@ const filteredData = asidata?.filter((item) => {
   return false;
 });
 
-console.log("MBT Data:", MBT);
-console.log("MC Data:", MC);
-console.log("CFR Data:", CFR);
+// console.log("MBT Data:", MBT);
+// console.log("MC Data:", MC);
+// console.log("CFR Data:", CFR);
 
 
   return (

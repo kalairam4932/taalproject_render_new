@@ -2,6 +2,7 @@ import React, {useState} from 'react'
 import { useQuery } from "@tanstack/react-query";
 import './vendorTable.css'
 import { useNavigate } from "react-router-dom";
+import { base_url } from '../../../constant/url';
 
 const AircraftDetails = () => {
   const navigate = useNavigate();
@@ -11,7 +12,7 @@ const AircraftDetails = () => {
     queryKey: ["aircraftdatakey"],
     queryFn: async () => {
       try {
-        const res = await fetch("https://taal.onrender.com/api/aircraft/", {
+        const res = await fetch(`${base_url}/api/aircraft/`, {
           method: "GET",
           credentials: "include",
           headers: {

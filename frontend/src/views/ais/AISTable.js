@@ -3,6 +3,9 @@ import './ais.css'
 import { useNavigate, useParams } from 'react-router-dom';
 import useFetch  from '../customHooks/UseFetch'
 import { Link } from 'react-router-dom';
+import { useQuery , useQueryClient ,useMutation, Mutation} from "@tanstack/react-query";
+import Swal from "sweetalert2";
+import axios from 'axios';
 import { base_url } from '../../../constant/url';
 
 
@@ -13,18 +16,60 @@ const AISTable = () => {
     const itemsPerPage = 5; // Adjust items per page as needed
     const navigate = useNavigate();
     const {id} = useParams();
+    const queryClient = useQueryClient();
 
     //Fetch data From Flight Log Details
-    const {data, loading } = useFetch(`${base_url}/api/assembly/getAssembly`)
-    console.log("Fetched Data:", data); // Check if data is being received correctly
+   
+    const{data:data,isLoading:asiloading} = useQuery({
+        queryKey:["asidatakey"],
+        queryFn: async()=>{
+          const response = await axios.get(`${base_url}/api/assembly/getAssembly`)
+          return response.data
+    
+        }
+    
+    })
+    // if(loading){
+    //     return <div>Loading...</div>
+    // }
+    // if(!data){
+    //     return <div>No Data Found</div>
+    // }
+                  const deleteAirframe = async ({deleteid}) => {
+                    const response = await axios.delete(`${base_url }/api/assembly/deleteAssembly/${deleteid}`);
+                    return response.data;
+                    };
+                
+                    
+                
+                    const useDeleteAirframe = useMutation( {
+                        mutationFn : deleteAirframe,
+                        onSuccess: () => {
+                            Swal.fire("Deleted!", "The airframe has been deleted.", "success");
+                            queryClient.invalidateQueries("asidatakey"); 
+                        },
+                        onError: (error) => {
+                            Swal.fire("Error!", "Failed to delete the airframe.", "error");
+                            console.error("Delete error:", error);
+                        }
+                    });
 
-
-    if(loading){
-        return <div>Loading...</div>
-    }
-    if(!data){
-        return <div>No Data Found</div>
-    }
+          const handleDelete = (deleteid) => {
+            console.log("dldid",deleteid)
+            Swal.fire({
+                title: "Are you sure?",
+                text: "You won't be able to revert this!",
+                icon: "warning",
+                showCancelButton: true,
+                confirmButtonColor: "#d33",
+                cancelButtonColor: "#3085d6",
+                confirmButtonText: "Yes, delete it!"
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    useDeleteAirframe.mutate({deleteid});
+                }
+            });
+        };
 
 
     return (
@@ -87,7 +132,7 @@ const AISTable = () => {
                                 <td>{item.remarks}</td>
                                 <td>{item.airframeElapsedValue}</td>
                                 <td>{item.airframeRemaining}</td>
-                                <td>{item.doneon}</td>
+                                <td>{item.Remainingdays}</td>
                             <td>
                                 <div className="d-flex justify-content-center">
                                     <Link to={`/editAIS/${item._id}`}>
@@ -95,7 +140,7 @@ const AISTable = () => {
                                             <i className="bi bi-pencil-square mx-2"></i>
                                         </button>
                                     </Link>  
-                                    <button className="btn btn-light">
+                                    <button className="btn btn-light" onClick={()=> handleDelete(item._id)}>
                                         <i className="bi bi-trash mx-2"></i>
                                     </button>
                                 </div>
@@ -104,7 +149,7 @@ const AISTable = () => {
                         ))
                         ) : (
                         <tr>
-                            <td colSpan="9" className="text-center text-danger">No Records Found</td>
+                            <td colSpan="9" className="text-center "><b>Loading....</b></td>
                         </tr>
                         )}
                     </tbody>

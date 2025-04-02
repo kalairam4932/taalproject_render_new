@@ -89,21 +89,21 @@ const _nav = [
         name: 'Primary Model',
         to: '/masterPrimaryModel',
       },
-      {
-        component: CNavItem,
-        name: 'Services Master',
-        to: '/SERVICETABLE',
-      },
-      {
-        component: CNavItem,
-        name: 'Assembly Master',
-        to: '/',
-      },
-      {
-        component: CNavItem,
-        name: 'Inspection Master',
-        to: '/',
-      },
+      // {
+      //   component: CNavItem,
+      //   name: 'Services Master',
+      //   to: '/SERVICETABLE',
+      // },
+      // {
+      //   component: CNavItem,
+      //   name: 'Assembly Master',
+      //   to: '/',
+      // },
+      // {
+      //   component: CNavItem,
+      //   name: 'Inspection Master',
+      //   to: '/',
+      // },
       // {
       //   component: CNavItem,
       //   name: 'Part',
@@ -143,6 +143,13 @@ const _nav = [
     to: '/ais',
     icon: <CIcon icon={cilCursor} customClassName="nav-icon" />,
   },
+  {
+    component: CNavItem,
+    name: 'Assembly Directive ',
+    to: '/ADSFORM',
+    icon: <CIcon icon={cilPlus} customClassName="nav-icon" />,
+  },
+
   {
     component: CNavItem,
     name: 'RH Engine ',

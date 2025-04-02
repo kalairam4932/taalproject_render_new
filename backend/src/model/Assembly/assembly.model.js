@@ -19,6 +19,9 @@ const InspectionSchema = new mongoose.Schema({
   airframeFrequency: { type: String },
   airframeElapsedValue: { type: String },
   airframeRemaining: { type: String },
+  Remainingdays:{
+    type: String
+  },
   extensionDate: { type: Date },
   extensionRemark: { type: String },
   applicable: { type: Boolean, default: false }
