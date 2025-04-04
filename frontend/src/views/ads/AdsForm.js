@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react'
 import { Form, Button, Container, Row, Col, Table } from "react-bootstrap";
-import './ads.css'
+import './Ads.css'
 import { useMutation, useQuery } from '@tanstack/react-query';
 import toast from 'react-hot-toast';
 import axios from 'axios';
