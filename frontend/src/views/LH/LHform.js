@@ -207,7 +207,7 @@ const RHform = () => {
     
 
   return (
-    <div className='rhbody container mt-3 border p-2 rounded shadow'>
+    <div className=' container mt-3 border p-2 rounded shadow'>
         <div className='row'>
             <h6 className='text-primary'>LH Engine Form</h6>
         </div>

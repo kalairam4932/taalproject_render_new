@@ -1,4 +1,5 @@
 import Inspection from "../model/Assembly/assembly.model.js";
+import ads from "../model/Assembly/ads.model.js";
 
 
 export const CreateAssembly = async(req,res) => {
@@ -44,6 +45,41 @@ export const updateAssembly  =async (req, res) => {
 export const deleteAssembly = async (req, res) => {
     try {
         const deletedInspection = await Inspection.findByIdAndDelete(req.params.id);
+        if (!deletedInspection) return res.status(404).json({ message: 'Inspection not found' });
+        res.status(200).json({ message: 'Inspection deleted successfully' });
+    } catch (err) {
+        res.status(500).json({ message: err.message });
+    }
+}
+
+
+// ADS functions
+
+export const Postads = async(req,res) => {
+    try{
+        const assembly = await ads(req.body);
+        await assembly.save();
+        res.status(201).json({message: 'Ads saved successfully', assembly: assembly});
+    }
+    catch(err){
+        res.status(400).json({message: err.message})
+    }
+}
+
+
+export const getads = async (req, res) => { 
+    try {
+        const inspections = await ads.find();
+        res.status(200).json(inspections);
+    } catch (err) {
+        res.status(500).json({ message: err.message });
+    }
+}
+
+
+export const deleteAsd = async (req, res) => {
+    try {
+        const deletedInspection = await ads.findByIdAndDelete(req.params.id);
         if (!deletedInspection) return res.status(404).json({ message: 'Inspection not found' });
         res.status(200).json({ message: 'Inspection deleted successfully' });
     } catch (err) {

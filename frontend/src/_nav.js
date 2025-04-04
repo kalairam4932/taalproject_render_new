@@ -146,7 +146,7 @@ const _nav = [
   {
     component: CNavItem,
     name: 'Assembly Directive ',
-    to: '/ADSFORM',
+    to: '/ADSTABLE',
     icon: <CIcon icon={cilPlus} customClassName="nav-icon" />,
   },
 

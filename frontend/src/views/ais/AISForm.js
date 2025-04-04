@@ -107,7 +107,11 @@ const AISForm = () => {
       };
 
     return (
-        <div className='aircraft-status border p-2 px-4  mt-4 rounded shadow'>
+    <div className=' container mt-3 border p-2 rounded shadow'>
+      <div className='row'>
+          <h6 className='text-primary'>Assembly Inspection Status</h6>
+      </div>
+        <div className='aircraft-status border p-2 px-4   rounded shadow'>
             <form onSubmit={handleSubmit}>
                 <div className='row pt-3 '>
                   <div className='col-xs-12 col-sm-12 col-md-12 col-lg-4 col-xl-4 col-xxl-4'>
@@ -607,6 +611,7 @@ const AISForm = () => {
                 </div>
             </form>
         </div>
+    </div>    
     )
 }
 
