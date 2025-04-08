@@ -14,10 +14,14 @@ import {
   cilSpeedometer,
   cilStar,
   cilArrowThickRight,
-  cilPlus
+  cilPlus,
+  cilClearAll,
+  cilCaretRight,
+  cilChevronRight,
+  cilStream
 } from '@coreui/icons'
 import { CNavGroup, CNavItem, CNavTitle } from '@coreui/react'
-
+import './css/header.css'
 const _nav = [
   {
     component: CNavItem,
@@ -28,6 +32,7 @@ const _nav = [
       color: 'info',
       text: 'NEW',
     },
+   
   },
   {
     component: CNavItem,
@@ -35,19 +40,339 @@ const _nav = [
     to: '/flightLogDetails',
     icon: <CIcon icon={cilPuzzle} customClassName="nav-icon" />,
   },
+  //aircraft master
   {
-    component: CNavItem,
+    component: CNavGroup,
     name: 'Aircraft Master',
-
-    to: '/aircraft',
+    to: '/',
     icon: <CIcon icon={cilPlus} customClassName="nav-icon" />,
+    items: [
+      {
+        component: CNavItem,
+        name: 'Details',
+        to: '/aircraft',
+      },
+      {
+        component: CNavGroup,
+        name: 'Assembly',
+        icon: <CIcon icon={cilClearAll} customClassName="nav-icon" />,
+
+        items: [
+          {
+            component: CNavGroup,
+            name: 'Air Frame',
+            to: '/',
+            icon: <CIcon icon={cilCaretRight} customClassName="nav-icon" />,
+            items:[
+              {
+                component: CNavItem,
+                name: 'AirFrame',
+                to: '/airFrame',
+              },
+              {
+                component: CNavItem,
+                name: 'Component',
+                to: '/Component',
+              },
+              {
+                component: CNavItem,
+                name: 'Services',
+                to: '/Services',
+              },
+              {
+                component: CNavItem,
+                name: 'Inspection',
+                to: '/Inspection',
+              },
+              {
+                component: CNavItem,
+                name: 'Directives',
+                to: '/Directives',
+              },
+              {
+                component: CNavItem,
+                name: 'Parameters',
+                to: '/Parameters',
+              },
+              {
+                component: CNavItem,
+                name: 'History Card',
+                to: '/HistoryCard',
+              }
+            ]
+
+          },
+          {
+            component: CNavGroup,
+            name: 'LH Engine',
+            to: '/',
+            icon: <CIcon icon={cilCaretRight} customClassName="nav-icon" />,
+            items:[
+              {
+                component: CNavItem,
+                name: 'LH Engine',
+                to: '/LHTABLE',
+              },
+              {
+                component: CNavItem,
+                name: 'Component',
+                to: '/Component',
+              },
+              {
+                component: CNavItem,
+                name: 'Services',
+                to: '/Services',
+              },
+              {
+                component: CNavItem,
+                name: 'Inspection',
+                to: '/Inspection',
+              },
+              {
+                component: CNavItem,
+                name: 'Directives',
+                to: '/Directives',
+              },
+              {
+                component: CNavItem,
+                name: 'Parameters',
+                to: '/Parameters',
+              },
+              {
+                component: CNavItem,
+                name: 'History Card',
+                to: '/HistoryCard',
+              }
+            ]
+
+          },
+          {
+            component: CNavGroup,
+            name: 'RH Engine',
+            to: '/',
+            icon: <CIcon icon={cilCaretRight} customClassName="nav-icon" />,
+            items:[
+              {
+                component: CNavItem,
+                name: 'RH Engine',
+                to: '/RHTABLE',
+              },
+              {
+                component: CNavItem,
+                name: 'Component',
+                to: '/Component',
+              },
+              {
+                component: CNavItem,
+                name: 'Services',
+                to: '/Services',
+              },
+              {
+                component: CNavItem,
+                name: 'Inspection',
+                to: '/Inspection',
+              },
+              {
+                component: CNavItem,
+                name: 'Directives',
+                to: '/Directives',
+              },
+              {
+                component: CNavItem,
+                name: 'Parameters',
+                to: '/Parameters',
+              },
+              {
+                component: CNavItem,
+                name: 'History Card',
+                to: '/HistoryCard',
+              }
+            ]
+
+          },
+          {
+            component: CNavGroup,
+            name: 'APU',
+            to: '/',
+            icon: <CIcon icon={cilCaretRight} customClassName="nav-icon" />,
+            items:[
+              {
+                component: CNavItem,
+                name: 'APU',
+                to: '/APU',
+              },
+              {
+                component: CNavItem,
+                name: 'Component',
+                to: '/Component',
+              },
+              {
+                component: CNavItem,
+                name: 'Services',
+                to: '/Services',
+              },
+              {
+                component: CNavItem,
+                name: 'Inspection',
+                to: '/Inspection',
+              },
+              {
+                component: CNavItem,
+                name: 'Directives',
+                to: '/Directives',
+              },
+              {
+                component: CNavItem,
+                name: 'Parameters',
+                to: '/Parameters',
+              },
+              {
+                component: CNavItem,
+                name: 'History Card',
+                to: '/HistoryCard',
+              }
+            ]
+
+          },
+          {
+            component: CNavGroup,
+            name: 'LH Landing',
+            to: '/',
+            icon: <CIcon icon={cilCaretRight} customClassName="nav-icon" />,
+            items:[
+              {
+                component: CNavItem,
+                name: 'LH Landing',
+                to: '/LH',
+              },
+              {
+                component: CNavItem,
+                name: 'Component',
+                to: '/Component',
+              },
+              {
+                component: CNavItem,
+                name: 'Services',
+                to: '/Services',
+              },
+              {
+                component: CNavItem,
+                name: 'Inspection',
+                to: '/Inspection',
+              },
+              {
+                component: CNavItem,
+                name: 'Directives',
+                to: '/Directives',
+              },
+              {
+                component: CNavItem,
+                name: 'Parameters',
+                to: '/Parameters',
+              },
+              {
+                component: CNavItem,
+                name: 'History Card',
+                to: '/HistoryCard',
+              }
+            ]
+
+          },
+          {
+            component: CNavGroup,
+            name: 'RH Landing',
+            to: '/',
+            icon: <CIcon icon={cilCaretRight} customClassName="nav-icon" />,
+            items:[
+              {
+                component: CNavItem,
+                name: 'RH Landing',
+                to: '/rh',
+              },
+              {
+                component: CNavItem,
+                name: 'Component',
+                to: '/Component',
+              },
+              {
+                component: CNavItem,
+                name: 'Services',
+                to: '/Services',
+              },
+              {
+                component: CNavItem,
+                name: 'Inspection',
+                to: '/Inspection',
+              },
+              {
+                component: CNavItem,
+                name: 'Directives',
+                to: '/Directives',
+              },
+              {
+                component: CNavItem,
+                name: 'Parameters',
+                to: '/Parameters',
+              },
+              {
+                component: CNavItem,
+                name: 'History Card',
+                to: '/HistoryCard',
+              }
+            ]
+
+          },
+          {
+            component: CNavGroup,
+            name: 'Air Condition',
+            to: '/',
+            icon: <CIcon icon={cilCaretRight} customClassName="nav-icon" />,
+            items:[
+              {
+                component: CNavItem,
+                name: 'Air Condition',
+                to: '/air',
+              },
+              {
+                component: CNavItem,
+                name: 'Component',
+                to: '/Component',
+              },
+              {
+                component: CNavItem,
+                name: 'Services',
+                to: '/Services',
+              },
+              {
+                component: CNavItem,
+                name: 'Inspection',
+                to: '/Inspection',
+              },
+              {
+                component: CNavItem,
+                name: 'Directives',
+                to: '/Directives',
+              },
+              {
+                component: CNavItem,
+                name: 'Parameters',
+                to: '/Parameters',
+              },
+              {
+                component: CNavItem,
+                name: 'History Card',
+                to: '/HistoryCard',
+              }
+            ]
+
+          },
+        ],
+      },
+      
+    ],
   },
-  {
-    component: CNavItem,
-    name: 'Air Frame',
-    to: '/airFrame',
-    icon: <CIcon icon={cilExternalLink} customClassName="nav-icon" />,
-  },
+  // -------------------Aircraft master completed------------ 
+
   {
     component: CNavGroup,
     name: 'Other Masters',
@@ -89,51 +414,47 @@ const _nav = [
         name: 'Primary Model',
         to: '/masterPrimaryModel',
       },
-      // {
-      //   component: CNavItem,
-      //   name: 'Services Master',
-      //   to: '/SERVICETABLE',
-      // },
-      // {
-      //   component: CNavItem,
-      //   name: 'Assembly Master',
-      //   to: '/',
-      // },
-      // {
-      //   component: CNavItem,
-      //   name: 'Inspection Master',
-      //   to: '/',
-      // },
-      // {
-      //   component: CNavItem,
-      //   name: 'Part',
-      //   to: '/part',
-      // },
-      // {
-      //   component: CNavItem,
-      //   name: 'Owner',
-      //   to: '/',
-      // },
-      // {
-      //   component: CNavItem,
-      //   name: 'Category',
-      //   to: '/',
-      // },
-      // {
-      //   component: CNavItem,
-      //   name: 'Pilot',
-      //   to: '/',
-      // },
-      // {
-      //   component: CNavItem,
-      //   name: 'Co-Pilot',
-      //   to: '/',
-      // },
-      // {
-      //   component: CNavItem,
-      //   name: 'Aircraft Master',
-      //   to: '/aircraft',
-      // },
+      {
+        component: CNavItem,
+        name: 'Services Master',
+        to: '/SERVICETABLE',
+      },
+      {
+        component: CNavItem,
+        name: 'Assembly Master',
+        to: '/AssemblyMaster',
+      },
+      {
+        component: CNavItem,
+        name: 'Inspection Master',
+        to: '/Inspection',
+      },
+      {
+        component: CNavItem,
+        name: 'Part',
+        to: '/part',
+      },
+      {
+        component: CNavItem,
+        name: 'Owner',
+        to: '/Owner',
+      },
+      {
+        component: CNavItem,
+        name: 'Category',
+        to: '/Category',
+      },
+      {
+        component: CNavItem,
+        name: 'Pilot',
+        to: '/Pilot',
+      },
+      {
+        component: CNavItem,
+        name: 'Co-Pilot',
+        to: '/Co',
+      },
+
       
     ],
   },
@@ -141,27 +462,51 @@ const _nav = [
     component: CNavItem,
     name: 'Assembly Inspection ',
     to: '/ais',
-    icon: <CIcon icon={cilCursor} customClassName="nav-icon" />,
+    icon: <CIcon icon={cilStream} customClassName="nav-icon" />,
   },
   {
     component: CNavItem,
     name: 'Assembly Directive ',
     to: '/ADSTABLE',
-    icon: <CIcon icon={cilPlus} customClassName="nav-icon" />,
+    icon: <CIcon icon={cilStream} customClassName="nav-icon" />,
+  },
+  {
+    component: CNavItem,
+    name: 'Assembly Hours ',
+    to: '/ASH',
+    icon: <CIcon icon={cilStream} customClassName="nav-icon" />,
+  },
+  {
+    component: CNavItem,
+    name: 'Parts',
+    to: '/Parts',
+    icon: <CIcon icon={cilStream} customClassName="nav-icon" />,
+  },
+  {
+    component: CNavItem,
+    name: 'Parts Out ',
+    to: '/Partsout',
+    icon: <CIcon icon={cilStream} customClassName="nav-icon" />,
+  },
+  {
+    component: CNavItem,
+    name: 'Thres Hold ',
+    to: '/ThresHold',
+    icon: <CIcon icon={cilStream} customClassName="nav-icon" />,
+  },
+  {
+    component: CNavItem,
+    name: 'MPD ',
+    to: '/MPD',
+    icon: <CIcon icon={cilStream} customClassName="nav-icon" />,
   },
 
-  {
-    component: CNavItem,
-    name: 'RH Engine ',
-    to: '/RHTABLE',
-    icon: <CIcon icon={cilPencil} customClassName="nav-icon" />,
-  },
-  {
-    component: CNavItem,
-    name: 'LH Engine ',
-    to: '/LHTABLE',
-    icon: <CIcon icon={cilArrowThickRight} customClassName="nav-icon" />,
-  },
+
+
+
+
+
+
   // {
   //   component: CNavGroup,
   //   name: 'MPD?ADs/SBs',

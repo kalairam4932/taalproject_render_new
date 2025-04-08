@@ -641,25 +641,37 @@ const AddAirFrame = () => {
 
                 <h6 className="btn-bg-color text-white text-center btn-border mx-1 p-1 mt-3">Time Since New Values Of Aircraft (TNS)</h6>
 
-                <table className='mt-2 rhtable ms-5'>
+
+                  
+
+                <table className='mt-2 airframetab ms-5'>
                     <tr>
+                        <th className='text-center' ></th>
                         <th className='text-center'>Periods</th>
                         <th className='text-center'>AirFrame</th>
+                       
                         
                     </tr>
                     <tr>
-                        <td className='text-center'><label htmlFor="Hours" >Hours</label></td>
-                        <td><input type="time" className='tableinput' id='Hours' name='Hours' onChange={handleChange}  /></td>
+                        <td><label htmlFor="" style={{padding:"12px"}}></label></td>
+                        <td className=''><label htmlFor="Hours"  style={{paddingLeft:"5px"}} ><b>Hours</b></label></td>
+                        <td><div className='tableflex'>
+                          <input type="time" className='airframeinput' id='Hours' name='Hours' onChange={handleChange}  />
+                          </div></td>
                        
                     </tr>
                     <tr>
-                        <td className='text-center'><label htmlFor="ManufacturingDate">Manufacturing Date</label></td> 
-                        <td><input type="date" className='tableinput' id='ManufacturingDate' name='ManufacturingDate' onChange={handleChange} /></td>
+                        <td></td>
+                        <td className='' style={{paddingLeft:"30px"}}><label htmlFor="ManufacturingDate" style={{paddingLeft:"5px"}}><b>Manufacturing Date</b></label></td> 
+                        <td><div className='tableflex'><input type="date" className='airframeinput' id='ManufacturingDate' name='ManufacturingDate' onChange={handleChange} /></div></td>
                         
                     </tr>
                     <tr>
-                        <td className='text-center'><label htmlFor="Landings">Landings</label></td>
-                        <td><input type="text" className='tableinput' id='Landings' name='Landings' onChange={handleChange} /></td>
+                        <td></td>
+                        <td className='' style={{paddingLeft:"30px"}}><label htmlFor="Landings" style={{paddingLeft:"5px"}}><b>Landings</b></label></td>
+                        <td  ><div className='tableflex'>
+                        <input type="text" className='airframeinput' id='Landings' name='Landings' onChange={handleChange} />
+                          </div></td>
                         
                     </tr>
                     

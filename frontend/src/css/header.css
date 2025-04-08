@@ -13,5 +13,33 @@
   }
   
 
+  .sidebar-nav .nav-link {
+    color: #ffffff;
+    position: relative;
+    overflow: hidden;
+    transition: background-color 0.3s ease, transform 0.2s ease;
+    border-radius: 8px;
+  }
+  
+  .sidebar-nav .nav-link:hover {
+    background: linear-gradient(135deg, #8e2de2, #4a00e0); /* purple-blue gradient */
+    color: #ffffff;
+   
+    font-weight: 500;
+  }
+
+.sidebar-nav .nav-link.active {
+  box-shadow: 0 0 8px rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  color: #ffffff;
+  font-weight: 600;
+  border-radius: 8px;
+  /* box-shadow: 0 0 10px rgba(142, 45, 226, 0.5);  */
+  transform: scale(1.02);
+}
+
+  
+  
+  
   
   
