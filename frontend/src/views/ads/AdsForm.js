@@ -177,6 +177,7 @@ const AdsForm = () => {
                           </div>
                           <div className='col-7 '>
                           <input type="text" className="aisinput " id='DirectiveType' name='DirectiveType'  autoComplete="off" onChange={handleChange} />
+                          
                               
                           </div>
                     

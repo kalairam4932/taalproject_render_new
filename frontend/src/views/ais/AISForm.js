@@ -3,7 +3,7 @@ import { Form, Button, Container, Row, Col, Table } from "react-bootstrap";
 import './ais.css'
 import { useMutation, useQuery } from '@tanstack/react-query';
 import toast from 'react-hot-toast';
-import axios from 'axios';
+import axios from 'axios';``
 import { useNavigate, useParams } from "react-router-dom";
 import { reference } from '@popperjs/core';
 import { base_url } from '../../../constant/url';

@@ -53,3 +53,27 @@ export const signup = async(req,res)=>{
         })
     }
 }
+
+// export const login = async(req,res)=>{
+//     try {
+        
+//         const{username , password} = req.body;
+//         const userdb = await User.findOne({username});
+
+//         if(!userdb){
+//             return res.status(404).json({
+//                 message : "invalidate username"
+//             })
+//         }
+        
+//         const ispasswordiscorrect = await bcrypt.compare(password,userdb.password || " ")
+//         if(!ispasswordiscorrect){
+//             return res.status(404).json({
+//                 message:"password is incorrect"
+//             })
+//         }
+        
+//     } catch (error) {
+        
+//     }
+// }

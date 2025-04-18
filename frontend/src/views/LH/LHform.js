@@ -435,7 +435,7 @@ const RHform = () => {
                 <h6 className="btn-bg-color text-white text-center btn-border mx-1 p-1">Since New Values as on 19-Feb-2011</h6>
 
                 <div className='p-2'>
-                <table className='rhtable ms-5'>
+                <table className='Lhtable ms-5'>
                     <tr>
                         <th className='text-center'>Periods</th>
                         <th className='text-center'>Engine</th>
@@ -443,17 +443,17 @@ const RHform = () => {
                     </tr>
                     <tr>
                         <td><label htmlFor="Hours">Hours</label></td>
-                        <td><input type="time" className='tableinput' id='Hours' name='firsttable.Hours' onChange={handleChange}  /></td>
+                        <td><div className='lhflex'><input type="time" className='lhinput' id='Hours' name='firsttable.Hours' onChange={handleChange}  /></div></td>
                         <td>42:06</td>
                     </tr>
                     <tr>
                         <td><label htmlFor="Date">Date</label></td> 
-                        <td><input type="date" className='tableinput' id='Date' name='firsttable.Date' onChange={handleChange} /></td>
+                        <td><div className='lhflex'><input type="date" className='lhinput' id='Date' name='firsttable.Date' onChange={handleChange} /></div></td>
                         <td>21-jan-2011</td>
                     </tr>
                     <tr>
                         <td><label htmlFor="Landing">Landing</label></td>
-                        <td><input type="text" className='tableinput' id='Landing' name='firsttable.Landing' onChange={handleChange} /></td>
+                        <td><div className='lhflex'><input type="text" className='lhinput' id='Landing' name='firsttable.Landing' onChange={handleChange} /></div></td>
                         <td>0</td>
                     </tr>
                     
@@ -462,7 +462,7 @@ const RHform = () => {
 
                 <h6 className="btn-bg-color text-white text-center btn-border mx-1 p-1 mt-3">Values at Installation</h6>
 
-                <table className='mt-2 rhtable ms-5'>
+                <table className='mt-2 Lhtable ms-5'>
                     <tr>
                         <th className='text-center'>Engine</th>
                         <th className='text-center'>Assembly</th>
@@ -470,17 +470,17 @@ const RHform = () => {
                     </tr>
                     <tr>
                         <td><label htmlFor="Hoursone">Hours</label></td>
-                        <td><input type="time" className='tableinput' id='Hoursone' name='secondtable.Hours' onChange={handleChange}  /></td>
+                        <td><div className='lhflex'><input type="time" className='lhinput' id='Hoursone' name='secondtable.Hours' onChange={handleChange}  /></div></td>
                         <td>42:06</td>
                     </tr>
                     <tr>
                         <td><label htmlFor="Dateone">Date</label></td> 
-                        <td><input type="date" className='tableinput' id='Dateone' name='secondtable.Date' onChange={handleChange} /></td>
+                        <td><div className='lhflex'><input type="date" className='lhinput' id='Dateone' name='secondtable.Date' onChange={handleChange} /></div></td>
                         <td>21-jan-2011</td>
                     </tr>
                     <tr>
                         <td><label htmlFor="Landingone">Landing</label></td>
-                        <td><input type="text" className='tableinput' id='Landingone' name='secondtable.Landing' onChange={handleChange} /></td>
+                        <td><div className='lhflex'><input type="text" className='lhinput' id='Landingone' name='secondtable.Landing' onChange={handleChange} /></div></td>
                         <td>0</td>
                     </tr>
                     
