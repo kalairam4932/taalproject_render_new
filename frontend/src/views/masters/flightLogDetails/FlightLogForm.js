@@ -14,16 +14,16 @@ const FlightLogForm = () => {
   console.log(id);
 
   const [formData, setFormData] = useState({
-    date: "",  // Matches Mongoose `data`
+    date: "",  // Matches Mongoose data
     Logno: { first: "", second: "" },
     pageno: "",  // Convert to Number before saving
     flightno: "",  // Convert to Number before saving
     pilotcmt: "",
     copilot: "",
-    // attachfiles: ["", ""],  // Use array instead of `attachfile1`, `attachfile2`
+    // attachfiles: ["", ""],  // Use array instead of attachfile1, attachfile2
     classification: "",
-    departure: { place: "", date: "", time: "" },  // `Time` → `time`
-    arrival: { place: "", date: "", time: "" },  // `Time` → `time`
+    departure: { place: "", date: "", time: "" },  // Time → time
+    arrival: { place: "", date: "", time: "" },  // Time → time
     HOBBS: {
       blocktime: "",
       airborntime: "",
@@ -76,169 +76,36 @@ const FlightLogForm = () => {
   }, [id]);
 
 
-  // Optimized handleChange function
-  // const handleChange = (e) => {
-  //   const { name, value, type, files, dataset } = e.target;
-
-  //   setFormData((prev) => {
-  //     // ✅ Handle file uploads
-  //     // if (type === "file") {
-  //     //   return { ...prev, [name]: files[0] };
-  //     // }
-
-  //     // ✅ Handle dynamic arrays
-  //     if (dataset.arrayname) {
-  //       const arrayName = dataset.arrayname;
-  //       const index = Number(dataset.index);
-  //       const field = dataset.field;
-  //       const updatedArray = [...prev[arrayName]];
-  //       updatedArray[index][field] = value;
-  //       return { ...prev, [arrayName]: updatedArray };
-  //     }
-
-  //     // ✅ Handle nested objects
-  //     if (name.includes(".")) {
-  //       const [main, sub] = name.split(".");
-  //       return { ...prev, [main]: { ...prev[main], [sub]: value } };
-  //     }
-
-  //     // ✅ Handle normal fields
-  //     return { ...prev, [name]: value };
-  //   });
-  // };
-
-
+  // 🔥 Optimized handleChange function
   const handleChange = (e) => {
     const { name, value, type, files, dataset } = e.target;
-  
+
     setFormData((prev) => {
-      let updatedForm = { ...prev };
-  
       // ✅ Handle file uploads
       if (type === "file") {
-        updatedForm[name] = files[0];
+        return { ...prev, [name]: files[0] };
       }
-  
+
       // ✅ Handle dynamic arrays
-      else if (dataset.arrayname) {
+      if (dataset.arrayname) {
         const arrayName = dataset.arrayname;
         const index = Number(dataset.index);
         const field = dataset.field;
         const updatedArray = [...prev[arrayName]];
         updatedArray[index][field] = value;
-        updatedForm[arrayName] = updatedArray;
+        return { ...prev, [arrayName]: updatedArray };
       }
-  
+
       // ✅ Handle nested objects
-      else if (name.includes(".")) {
+      if (name.includes(".")) {
         const [main, sub] = name.split(".");
-        updatedForm[main] = { ...updatedForm[main], [sub]: value };
+        return { ...prev, [main]: { ...prev[main], [sub]: value } };
       }
-  
+
       // ✅ Handle normal fields
-      else {
-        updatedForm[name] = value;
-      }
-  
-      // ✅ Block Time Calculation
-      const { departure, arrival } = updatedForm;
-      if (
-        departure?.date &&
-        departure?.time &&
-        arrival?.date &&
-        arrival?.time
-      ) {
-        const departureDateTime = new Date(`${departure.date}T${departure.time}`);
-        const arrivalDateTime = new Date(`${arrival.date}T${arrival.time}`);
-  
-        const diffMs = arrivalDateTime - departureDateTime;
-  
-        if (!isNaN(diffMs) && diffMs >= 0) {
-          const diffMins = Math.floor(diffMs / 60000);
-          const hours = String(Math.floor(diffMins / 60)).padStart(2, '0');
-          const minutes = String(diffMins % 60).padStart(2, '0');
-          updatedForm.HOBBS = {
-            ...updatedForm.HOBBS,
-            blocktime: `${hours}:${minutes}`,
-          };
-        } else {
-          updatedForm.HOBBS = {
-            ...updatedForm.HOBBS,
-            blocktime: '',
-          };
-        }
-      }
-  
-      return updatedForm;
+      return { ...prev, [name]: value };
     });
   };
-  
-
-  // const handleChange = (e) => {
-  //   const { name, value, type, files, dataset } = e.target;
-  
-  //   setFormData((prev) => {
-  //     let updatedForm = { ...prev };
-  
-  //     // ✅ Handle file uploads
-  //     if (type === "file") {
-  //       updatedForm[name] = files[0];
-  //     }
-  
-  //     // ✅ Handle dynamic arrays
-  //     else if (dataset.arrayname) {
-  //       const arrayName = dataset.arrayname;
-  //       const index = Number(dataset.index);
-  //       const field = dataset.field;
-  //       const updatedArray = [...prev[arrayName]];
-  //       updatedArray[index][field] = value;
-  //       updatedForm[arrayName] = updatedArray;
-  //     }
-  
-  //     // ✅ Handle nested objects
-  //     else if (name.includes(".")) {
-  //       const [main, sub] = name.split(".");
-  //       updatedForm[main] = { ...updatedForm[main], [sub]: value };
-  //     }
-  
-  //     // ✅ Handle normal fields
-  //     else {
-  //       updatedForm[name] = value;
-  //     }
-  
-  //     // ✅ Block Time Calculation
-  //     const { departure, arrival } = updatedForm;
-  //     if (
-  //       departure?.date &&
-  //       departure?.time &&
-  //       arrival?.date &&
-  //       arrival?.time
-  //     ) {
-  //       const departureDateTime = new Date(`${departure.date}T${departure.time}`);
-  //       const arrivalDateTime = new Date(`${arrival.date}T${arrival.time}`);
-  
-  //       const diffMs = arrivalDateTime - departureDateTime;
-  
-  //       if (!isNaN(diffMs) && diffMs >= 0) {
-  //         const diffMins = Math.floor(diffMs / 60000);
-  //         const hours = String(Math.floor(diffMins / 60)).padStart(2, '0');
-  //         const minutes = String(diffMins % 60).padStart(2, '0');
-  //         updatedForm.HOBBS = {
-  //           ...updatedForm.HOBBS,
-  //           blocktime: `${hours}:${minutes}`,
-  //         };
-  //       } else {
-  //         updatedForm.HOBBS = {
-  //           ...updatedForm.HOBBS,
-  //           blocktime: '',
-  //         };
-  //       }
-  //     }
-  
-  //     return updatedForm;
-  //   });
-  // };
-  
 
 
   const handleSubmit = async (e) => {
@@ -247,10 +114,10 @@ const FlightLogForm = () => {
       let response;
   
       if (id) {
-        response = await axios.put(`${base_url}/api/flightlog/Updateflightlogs/${id}`, formData); // Corrected template literals
+        response = await axios.put(`${base_url}/api/flightlog/Updateflightlogs/${id}, formData`); // Corrected template literals
         alert("Flight Log Details updated successfully!");
       } else {
-        response = await axios.post(`${base_url}/api/flightlog/postflightlogs`, formData);
+        response = await axios.post(`${base_url}/api/flightlog/postflightlogs, formData`);
         alert("Flight Log Details submitted successfully!");
       }
   
@@ -264,7 +131,125 @@ const FlightLogForm = () => {
   
 
 
+  const handleChange1 = (event) => {
+    const { name, value } = event.target;
+  
+    // Update the state
+    setFormData((prevData) => {
+      let updatedData = { ...prevData };
+  
+      // Update departure or arrival time
+      if (name === "departure.time") {
+        updatedData.departure = {
+          ...updatedData.departure,
+          time: value,
+        };
+      }
+  
+      if (name === "arrival.time") {
+        updatedData.arrival = {
+          ...updatedData.arrival,
+          time: value,
+        };
+      }
+  
+      // Check if both times are available
+      const departureTime = updatedData.departure?.time;
+      const arrivalTime = updatedData.arrival?.time;
+  
+      if (departureTime && arrivalTime) {
+        // Parse time strings to Date objects (same day)
+        const [dHours, dMinutes] = departureTime.split(':').map(Number);
+        const [aHours, aMinutes] = arrivalTime.split(':').map(Number);
+  
+        const departureDate = new Date(0, 0, 0, dHours, dMinutes);
+        const arrivalDate = new Date(0, 0, 0, aHours, aMinutes);
+  
+        // Subtract times (milliseconds)
+        const diffMs = departureDate - arrivalDate;
+        const diffMinutes = Math.abs(diffMs) / 60000;
+        const diffHours = Math.floor(diffMinutes / 60);
+        const minutes = diffMinutes % 60;
+  
+        // Format as HH:MM
+        const formatted = `${String(diffHours).padStart(2, '0')}:${String(minutes).padStart(2, '0')}`;
+  
+        // Set blocktime
+        updatedData.HOBBS = {
+          ...updatedData.HOBBS,
+          blocktime: formatted,
+        };
+        updatedData.HOBBS = {
+          ...updatedData.HOBBS,
+          totaltime: formatted,
+        };
+      }
+  
+      return updatedData;
+    });
+  };
+const handleChange2 = (event) => {
+  const { name, value } = event.target;
 
+  setFormData((prevData) => {
+    const updatedData = {
+      ...prevData,
+      HOBBS: {
+        ...prevData.HOBBS,
+        [name.split('.')[1]]: value,
+      },
+    };
+
+    if (name === 'HOBBS.airborntime' && updatedData.HOBBS.blocktime) {
+      const blocktime = updatedData.HOBBS.blocktime;
+      const airborntime = value;
+
+      const [bHours, bMinutes] = blocktime.split(':').map(Number);
+      const [aHours, aMinutes] = airborntime.split(':').map(Number);
+
+      const blockDate = new Date(0, 0, 0, bHours, bMinutes);
+      const airborneDate = new Date(0, 0, 0, aHours, aMinutes);
+
+      const diffMs = blockDate - airborneDate;
+      const diffMinutes = Math.abs(diffMs) / 60000;
+      const diffHours = Math.floor(diffMinutes / 60);
+      const minutes = diffMinutes % 60;
+
+      const formatted1 = `${diffHours}:${String(minutes).padStart(2, '0')}`;
+
+      updatedData.HOBBS = {
+        ...updatedData.HOBBS,
+        groundruntime1: formatted1,
+        totaltime: airborntime,
+      };
+
+      // Also update airframeperiod[0].hours
+      const updatedAirframe = [...(prevData.airframeperiod || [])];
+      updatedAirframe[0] = {
+        ...(updatedAirframe[0] || {}),
+        hours: airborntime,
+      };
+
+      updatedData.airframeperiod = updatedAirframe;
+
+      const updatedEngine = [...(prevData.engineperiod || [])];
+      updatedEngine[0] = {
+        ...(updatedEngine[0] || {}),
+        hours: airborntime,
+      };
+      updatedData.engineperiod = updatedEngine;
+    }
+
+    return updatedData;
+  });
+};
+
+  
+  
+  const handleCombinedChange = (event) => {
+    handleChange(event);   // Your existing logic
+    handleChange1(event);  // Your additional logic
+  };
     return (
         <div className="container">
           <form onSubmit={handleSubmit}>
@@ -334,13 +319,12 @@ const FlightLogForm = () => {
                             <input type="text" name='copilot' className='w-100 input-border'  value={formData.copilot} onChange={handleChange}/>
                         </Form.Group>
                         <Form.Group className='mt-2 d-flex'>
-                          <input type="text" name='classification' className='w-100 input-border'  value={formData.classification} onChange={handleChange}/>
-                          {/* <select className="w-100 input-border" name="classification"  value={formData.classification} onChange={handleChange}>
+                          <select className="w-100 input-border" name="classification"  value={formData.classification} onChange={handleChange}>
                           <option selected>Select...</option>
                           <option value="1">One</option>
                           <option value="2">Two</option>
                           <option value="3">Three</option>
-                          </select> */}
+                          </select>
                         </Form.Group>
                       </div>
                     </div>
@@ -356,7 +340,7 @@ const FlightLogForm = () => {
                             <input type="text" name='departure.place' className='w-100 input-border'  value={formData.departure.place}  onChange={handleChange}/>
                             <label className='mx-1 px-2 fw-bold text-light'>Date/Time</label>
                             <input type="date" name='departure.date' className='w-100 input-border' value={formData.departure.date} onChange={handleChange}/>
-                            <input type="time" name='departure.time' className='w-100 mx-1 input-border'  value={formData.departure.time}  onChange={handleChange}/>
+                            <input type="time" name='departure.time' className='w-100 mx-1 input-border'  value={formData.departure.time}  onChange={handleCombinedChange}/>
                           </Form.Group>
                         </div>
                       </div>
@@ -368,7 +352,7 @@ const FlightLogForm = () => {
                             <input type="text" name='arrival.place' className='w-100 input-border'  value={formData.arrival.place} onChange={handleChange}/>
                             <label className='mx-1 px-2 fw-bold text-light'>Date/Time</label>
                             <input type="date" name='arrival.date' className='w-100 input-border'  value={formData.arrival.date}  onChange={handleChange}/>
-                            <input type="time" name='arrival.time' className='w-100 mx-1 input-border'  value={formData.arrival.time}  onChange={handleChange}/>
+                            <input type="time" name='arrival.time' className='w-100 mx-1 input-border'  value={formData.arrival.time}  onChange={handleCombinedChange}/>
                           </Form.Group>
                         </div>
                       </div>
@@ -386,7 +370,7 @@ const FlightLogForm = () => {
                     <div className='col-xs-12 col-sm-12 col-md-12 col-lg-3 col-xl-3 col-xxl-3'>
                       <Form.Group className='d-flex align-items-center'>
                         <label className='mx-1 px-2 fw-bold text-light'>Airborne time</label>
-                        <input type="text" name='HOBBS.airborntime' className='w-100 input-border' value={formData.HOBBS.airborntime} onChange={handleChange} />
+                        <input type="text" name='HOBBS.airborntime' className='w-100 input-border' value={formData.HOBBS.airborntime} onChange={handleChange2} />
                       </Form.Group>
                     </div>
                     <div className='col-xs-12 col-sm-12 col-md-12 col-lg-3 col-xl-3 col-xxl-3'>
