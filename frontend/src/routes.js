@@ -44,6 +44,8 @@ const Charts = React.lazy(() => import('./views/charts/Charts'))
 
 const Aircraft = React.lazy(() => import('./views/aircraft/Aircraft'))
 const AircraftDetails = React.lazy(() => import('./views/aircraft/AircraftDetails'))
+const Updateaircraft = React.lazy(() => import('./views/aircraft/Updateaircraft'))
+
 const AddAircraft = React.lazy(() => import('./views/aircraft/AircraftAccordion'))
 const ManufactureTable= React.lazy(() => import('./views/masters/Manufacture'))
 const ATATable = React.lazy(() => import('./views/masters/Ata'))
@@ -187,6 +189,7 @@ const routes = [
 
   {path: '/updateairframe/:id' , name : 'Updata air frame' ,element : updateairframelink},
   {path: '/updatemodel/:id' , name : 'updatemodel' ,element : updatemodelmasterlink},
+  {path: '/updateaircraft/:id' , name : 'updatemodel' ,element : Updateaircraft},
 
   { path: '/updateata/:id' , name : 'updateata' ,element : updateata},
   { path: '/updateprimary/:id' , name : 'updateprimary' ,element : updateprimary},

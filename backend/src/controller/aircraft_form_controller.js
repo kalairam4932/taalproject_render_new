@@ -134,6 +134,51 @@ export const getpostaircraftdata = async(req,res)=>{
     }
 }
 
+
+export const dldaircraftdata  = async(req,res)=>{
+    try {
+        const { id } = req.params;
+
+        // Check if model exists
+        const model = await aircraftdata.findById(id);
+        if (!model) {
+            return res.status(404).json({ message: "Model not found" });
+        }
+
+        // Delete model
+        await aircraftdata.findByIdAndDelete(id);
+        res.status(200).json({ message: "Model deleted successfully" });
+
+    } catch (error) {
+        console.error("Error deleting model:", error);
+        res.status(500).json({ message: "Internal Server Error" });
+    }
+}
+
+export const getaircraftdata = async(req,res)=>{
+    try {
+
+        const{id} = req.params;
+        const modeldata = await aircraftdata.findById({_id:id})
+        if(!modeldata){
+            return res.status(404).json({error:"aircraftdata is unavailable "})
+
+        }
+
+        return res.status(200).json(modeldata)
+
+
+        
+    } catch (error) {
+        console.log(`Error in aircraftdata function ${error}`);
+        return res.status(500).json({
+            error: "Internal Server ERROR"
+        })
+        
+    }
+
+} 
+
 export const Manufacturedata = async (req, res) => {
     try {
         const { manufactureName } = req.body; // Renamed for clarity

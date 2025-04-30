@@ -129,32 +129,35 @@ const AircraftStatus = () => {
                         <input type="text" name='regno' className='form-control p-0 input-border' value={formData.regno} onChange={handleChange} />
                     </Form.Group>
                     <Form.Group className='mt-2'>
-                    <select className="form-control p-0 input-border" name="category" value={formData.category} onChange={handleChange}>
+                    <input type="text" name='category' className='form-control p-0 input-border' value={formData.category} onChange={handleChange} />
+                    {/* <select className="form-control p-0 input-border" name="category" value={formData.category} onChange={handleChange}>
                         <option selected>Select...</option>
                         <option value="1">One</option>
                         <option value="2">Two</option>
                         <option value="3">Three</option>
                         <option value="4">four</option>
-                      </select>
+                      </select> */}
                     </Form.Group>
                     <Form.Group className='mt-2'>
                         <input type="text" name='owner' className='form-control p-0 input-border' value={formData.owner} onChange={handleChange} />
                     </Form.Group>
                     <Form.Group className='mt-2'>
-                      <select className="form-control p-0 input-border" name="hourtype" value={formData.hourtype} onChange={handleChange}>  
+                      <input type="text" name='hourtype' className='form-control p-0 input-border' value={formData.hourtype} onChange={handleChange} />
+                      {/* <select className="form-control p-0 input-border" name="hourtype" value={formData.hourtype} onChange={handleChange}>  
                         <option selected>Select...</option>
                         <option value="1">One</option>
                         <option value="2">Two</option>
                         <option value="3">Three</option>
-                      </select>
+                      </select> */}
                     </Form.Group>
                     <Form.Group className='mt-2'>
-                      <select className="form-control p-0 input-border" name="operator" value={formData.operator} onChange={handleChange}>
+                      <input type="text" name='operator' className='form-control p-0 input-border' value={formData.operator} onChange={handleChange} />
+                      {/* <select className="form-control p-0 input-border" name="operator" value={formData.operator} onChange={handleChange}>
                           <option selected>Select...</option>
                           <option value="1">One</option>
                           <option value="2">Two</option>
                           <option value="3">Three</option>
-                        </select>
+                        </select> */}
                     </Form.Group>
                 </div>
             </div>
@@ -176,14 +179,19 @@ const AircraftStatus = () => {
               </div>
               <div className='col-xs-7 col-sm-7 col-md-7 col-lg-7 col-xl-7 col-xxl-7'>
                   <Form.Group className='mt-2'>
-                      <input type="text" name='manufacture' className='form-control p-0 input-border' value={formData.manufacture} onChange={handleChange} />
+                      {/* <input type="text" name='manufacture' className='form-control p-0 input-border' value={formData.manufacture} onChange={handleChange} /> */}
+                      <select className="form-control p-0 input-border" name="manufacture" value={formData.manufacture} onChange={handleChange}>
+                      <option selected>Select...</option>
+                      <option value="1">ARTEX</option>
+                      <option value="2">Astro Engine GmbH</option>
+                      </select>
                   </Form.Group>
                   <Form.Group className='mt-2'>
                   <select className="form-control p-0 input-border" name="model" value={formData.model} onChange={handleChange}>
                       <option selected>Select...</option>
-                      <option value="1">One</option>
-                      <option value="2">Two</option>
-                      <option value="3">Three</option>
+                      <option value="1">CESSNA 152</option>
+                      <option value="2">CESSNA A/C</option>
+              
                     </select>
                   </Form.Group>
                   <Form.Group className='mt-2'>
@@ -265,33 +273,45 @@ const AircraftStatus = () => {
                     <Form.Group className='mt-2'>
                       <select className="form-control p-0 input-border" name="emptywt2" value={formData.emptywt1} onChange={handleChange}>
                         <option selected>Select...</option>
-                        <option value="1">One</option>
-                        <option value="2">Two</option>
-                        <option value="3">Three</option>
+                        <option value="1">Gallon (UK) </option>
+                        <option value="2">Gallon (US)</option>
+                        <option value="3">KG</option>
+                        <option value="3">Liter</option>
+                        <option value="3">Pounds</option>
+                        <option value="3">Quarters</option>
                       </select>
                     </Form.Group>
                     <Form.Group className='mt-2'>
                     <select className="form-control p-0 input-border" name="grosspayload2" value={formData.grosspayload2} onChange={handleChange}>
-                        <option selected>Select...</option>
-                        <option value="1">One</option>
-                        <option value="2">Two</option>
-                        <option value="3">Three</option>
+                      <option selected>Select...</option>
+                        <option value="1">Gallon (UK) </option>
+                        <option value="2">Gallon (US)</option>
+                        <option value="3">KG</option>
+                        <option value="3">Liter</option>
+                        <option value="3">Pounds</option>
+                        <option value="3">Quarters</option>
                       </select>
                     </Form.Group>
                     <Form.Group className='mt-2'>
                       <select className="form-control p-0 input-border" name="takeoffwt2" value={formData.takeoffwt2} onChange={handleChange}>
-                        <option selected>Select...</option>
-                        <option value="1">One</option>
-                        <option value="2">Two</option>
-                        <option value="3">Three</option>
+                      <option selected>Select...</option>
+                        <option value="1">Gallon (UK) </option>
+                        <option value="2">Gallon (US)</option>
+                        <option value="3">KG</option>
+                        <option value="3">Liter</option>
+                        <option value="3">Pounds</option>
+                        <option value="3">Quarters</option>
                       </select>
                     </Form.Group>
                     <Form.Group className='mt-2'>
                       <select className="form-control p-0 input-border" name="landwt2" value={formData.landwt2} onChange={handleChange}>
-                        <option selected>Select...</option>
-                        <option value="1">One</option>
-                        <option value="2">Two</option>
-                        <option value="3">Three</option>
+                      <option selected>Select...</option>
+                        <option value="1">Gallon (UK) </option>
+                        <option value="2">Gallon (US)</option>
+                        <option value="3">KG</option>
+                        <option value="3">Liter</option>
+                        <option value="3">Pounds</option>
+                        <option value="3">Quarters</option>
                       </select>
                     </Form.Group>
                   </div>
@@ -330,34 +350,46 @@ const AircraftStatus = () => {
                   <div className='col-xs-4 col-sm-4 col-md-4 col-lg-4 col-xl-4 col-xxl-4'>
                     <Form.Group className='mt-2'>
                       <select className="form-control p-0 input-border" name="allupwt2" value={formData.allupwt2} onChange={handleChange}>
-                        <option selected>Select...</option>
-                        <option value="1">One</option>
-                        <option value="2">Two</option>
-                        <option value="3">Three</option>
+                      <option selected>Select...</option>
+                        <option value="1">Gallon (UK) </option>
+                        <option value="2">Gallon (US)</option>
+                        <option value="3">KG</option>
+                        <option value="3">Liter</option>
+                        <option value="3">Pounds</option>
+                        <option value="3">Quarters</option>
                       </select>
                     </Form.Group>
                     <Form.Group className='mt-2'>
                       <select className="form-control p-0 input-border" name="taxiwt2" value={formData.taxiwt2} onChange={handleChange}>
-                        <option selected>Select...</option>
-                        <option value="1">One</option>
-                        <option value="2">Two</option>
-                        <option value="3">Three</option>
+                      <option selected>Select...</option>
+                        <option value="1">Gallon (UK) </option>
+                        <option value="2">Gallon (US)</option>
+                        <option value="3">KG</option>
+                        <option value="3">Liter</option>
+                        <option value="3">Pounds</option>
+                        <option value="3">Quarters</option>
                       </select>
                     </Form.Group>
                     <Form.Group className='mt-2'>
                       <select className="form-control p-0 input-border" name="zerofuelwt2" value={formData.zerofuelwt2} onChange={handleChange}>
-                        <option selected>Select...</option>
-                        <option value="1">One</option>
-                        <option value="2">Two</option>
-                        <option value="3">Three</option>
+                      <option selected>Select...</option>
+                        <option value="1">Gallon (UK) </option>
+                        <option value="2">Gallon (US)</option>
+                        <option value="3">KG</option>
+                        <option value="3">Liter</option>
+                        <option value="3">Pounds</option>
+                        <option value="3">Quarters</option>
                       </select>
                     </Form.Group>
                     <Form.Group className='mt-2'>
                       <select className="form-control p-0 input-border" name="fuelcap2" value={formData.fuelcap2} onChange={handleChange}>
-                        <option selected>Select...</option>
-                        <option value="1">One</option>
-                        <option value="2">Two</option>
-                        <option value="3">Three</option>
+                      <option selected>Select...</option>
+                        <option value="1">Gallon (UK) </option>
+                        <option value="2">Gallon (US)</option>
+                        <option value="3">KG</option>
+                        <option value="3">Liter</option>
+                        <option value="3">Pounds</option>
+                        <option value="3">Quarters</option>
                       </select>
                     </Form.Group>
                   </div>
@@ -372,7 +404,40 @@ const AircraftStatus = () => {
                   <input type="date" className='mx-1 p-0 ms-3 input-border' />
                 </Form.Group>
               </div>
-              <Table  className=' mx-2 rounded-3 rhtable ms-5'>
+
+              <table className='mt-2 airframetab ms-5 mb-2'>
+                    <tr>
+                        <th className='text-center' ></th>
+                        <th className='text-center'>Periods</th>
+                        <th className='text-center'>AirFrame</th>
+                       
+                        
+                    </tr>
+                    <tr>
+                        <td><label htmlFor="" style={{padding:"12px"}}></label></td>
+                        <td className=''><label htmlFor="Hours"  style={{paddingLeft:"5px"}} ><b>Hours</b></label></td>
+                        <td><div className='tableflex'>
+                          <input type="time" className='airframeinput' id='Hours' name='' onChange={handleChange}  />
+                          </div></td>
+                       
+                    </tr>
+                    <tr>
+                        <td></td>
+                        <td className='' style={{paddingLeft:"30px"}}><label htmlFor="ManufacturingDate" style={{paddingLeft:"5px"}}><b>Manufacturing Date</b></label></td> 
+                        <td><div className='tableflex'><input type="date" className='airframeinput' id='ManufacturingDate' name='' onChange={handleChange} /></div></td>
+                        
+                    </tr>
+                    <tr>
+                        <td></td>
+                        <td className='' style={{paddingLeft:"30px"}}><label htmlFor="Landings" style={{paddingLeft:"5px"}}><b>Landings</b></label></td>
+                        <td  ><div className='tableflex'>
+                        <input type="text" className='airframeinput' id='Landings' name='' onChange={handleChange} />
+                          </div></td>
+                        
+                    </tr>
+                    
+                </table>
+              {/* <Table  className=' mx-2 rounded-3 rhtable ms-5'>
                 <thead >
                   <tr className='btn-bg-color text-center'>
                       <th className='text-center'>Periods</th>
@@ -393,7 +458,7 @@ const AircraftStatus = () => {
                     <td><input type="text" name='' className='form-control p-0 '  onChange={handleChange} /></td>
                 </tr>
                 </tbody>
-              </Table>
+              </Table> */}
             </div>
             <div className='row mt-1'>
               <h6 className="btn-bg-color text-white text-center p-1 btn-border mx-2">Other Details</h6>

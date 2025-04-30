@@ -1,11 +1,15 @@
 import React, {useState} from 'react'
-import { useQuery } from "@tanstack/react-query";
+import { useNavigate } from 'react-router-dom';
+import { useQuery , useQueryClient ,useMutation, Mutation} from "@tanstack/react-query";
+import Swal from "sweetalert2";
+import axios from 'axios';
 import './vendorTable.css'
-import { useNavigate } from "react-router-dom";
 import { base_url } from '../../../constant/url';
+
 
 const AircraftDetails = () => {
   const navigate = useNavigate();
+  const queryClient = useQueryClient();
   const [search, setSearch] = useState("");
 
   const { data: aircraftdata, isLoading, isError } = useQuery({
@@ -34,6 +38,46 @@ const AircraftDetails = () => {
   //   v.vendor.toLowerCase().includes(search.toLowerCase())
   // );
 
+
+  // dld function 
+  const deleteAirframe = async ({deleteid}) => {
+    console.log("dldhairm",deleteid )
+    const response = await axios.delete(`${base_url}/api/aircraft/dldaircraftdata/${deleteid}`);
+    return response.data;
+  };
+
+    
+
+    const useDeleteAirframe = useMutation( {
+        mutationFn : deleteAirframe,
+        onSuccess: () => {
+            Swal.fire("Deleted!", "The airframe has been deleted.", "success");
+            queryClient.invalidateQueries("getairframedatakey"); // Refresh data after delete
+        },
+        onError: (error) => {
+            Swal.fire("Error!", "Failed to delete the airframe.", "error");
+            console.error("Delete error:", error);
+        }
+    });
+
+
+        const handleDelete = (deleteid) => {
+          console.log("dldid",deleteid)
+          Swal.fire({
+              title: "Are you sure?",
+              text: "You won't be able to revert this!",
+              icon: "warning",
+              showCancelButton: true,
+              confirmButtonColor: "#d33",
+              cancelButtonColor: "#3085d6",
+              confirmButtonText: "Yes, delete it!"
+          }).then((result) => {
+              if (result.isConfirmed) {
+                  useDeleteAirframe.mutate({deleteid});
+              }
+          });
+      };
+
   return (
     <div className="container mt-4">
       {/* Header */}
@@ -56,15 +100,15 @@ const AircraftDetails = () => {
         <table className="text-center">
           <thead className="">
             <tr>
-              <th scope="col">#</th>
-              <th scope="col">Reg No</th>
-              <th scope="col">Category</th>
-              <th scope="col">Owner</th>
-              <th scope="col">Operator</th>
-              <th scope="col">manufacture</th>
-              <th scope="col">model</th>
-              <th scope="col">serialno</th>
-              <th scope="col">Action</th>
+              <th scope="col" className='col-1'>#</th>
+              <th scope="col" className='col-1'>Reg No</th>
+              <th scope="col" className='col-1'>Category</th>
+              <th scope="col" className='col-1'>Owner</th>
+              <th scope="col" className='col-1'>Operator</th>
+              <th scope="col" className='col-1'>manufacture</th>
+              <th scope="col" className='col-1'>model</th>
+              <th scope="col" className='col-1'>serialno</th>
+              <th scope="col" className='col-1'>Action</th>
             </tr>
           </thead>
           <tbody>
@@ -84,10 +128,11 @@ const AircraftDetails = () => {
                   
                   <td>
                     <div className='d-flex'>
-                      <button className="btn btn-light mx-2">
+                      <button className="btn btn-light mx-2" onClick={()=>navigate(`/updateaircraft/${vendor._id}`)}>
                         <i className="bi bi-pencil-square mx-2"></i>
                       </button>
-                      <button className="btn btn-light">
+
+                      <button className="btn btn-light" onClick={()=>handleDelete(vendor._id)}>
                         <i className="bi bi-trash mx-2"></i>
                       </button>
                     </div>

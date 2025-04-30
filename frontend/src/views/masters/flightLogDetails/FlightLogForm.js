@@ -76,36 +76,169 @@ const FlightLogForm = () => {
   }, [id]);
 
 
-  // 🔥 Optimized handleChange function
+  // Optimized handleChange function
+  // const handleChange = (e) => {
+  //   const { name, value, type, files, dataset } = e.target;
+
+  //   setFormData((prev) => {
+  //     // ✅ Handle file uploads
+  //     // if (type === "file") {
+  //     //   return { ...prev, [name]: files[0] };
+  //     // }
+
+  //     // ✅ Handle dynamic arrays
+  //     if (dataset.arrayname) {
+  //       const arrayName = dataset.arrayname;
+  //       const index = Number(dataset.index);
+  //       const field = dataset.field;
+  //       const updatedArray = [...prev[arrayName]];
+  //       updatedArray[index][field] = value;
+  //       return { ...prev, [arrayName]: updatedArray };
+  //     }
+
+  //     // ✅ Handle nested objects
+  //     if (name.includes(".")) {
+  //       const [main, sub] = name.split(".");
+  //       return { ...prev, [main]: { ...prev[main], [sub]: value } };
+  //     }
+
+  //     // ✅ Handle normal fields
+  //     return { ...prev, [name]: value };
+  //   });
+  // };
+
+
   const handleChange = (e) => {
     const { name, value, type, files, dataset } = e.target;
-
+  
     setFormData((prev) => {
+      let updatedForm = { ...prev };
+  
       // ✅ Handle file uploads
       if (type === "file") {
-        return { ...prev, [name]: files[0] };
+        updatedForm[name] = files[0];
       }
-
+  
       // ✅ Handle dynamic arrays
-      if (dataset.arrayname) {
+      else if (dataset.arrayname) {
         const arrayName = dataset.arrayname;
         const index = Number(dataset.index);
         const field = dataset.field;
         const updatedArray = [...prev[arrayName]];
         updatedArray[index][field] = value;
-        return { ...prev, [arrayName]: updatedArray };
+        updatedForm[arrayName] = updatedArray;
       }
-
+  
       // ✅ Handle nested objects
-      if (name.includes(".")) {
+      else if (name.includes(".")) {
         const [main, sub] = name.split(".");
-        return { ...prev, [main]: { ...prev[main], [sub]: value } };
+        updatedForm[main] = { ...updatedForm[main], [sub]: value };
       }
-
+  
       // ✅ Handle normal fields
-      return { ...prev, [name]: value };
+      else {
+        updatedForm[name] = value;
+      }
+  
+      // ✅ Block Time Calculation
+      const { departure, arrival } = updatedForm;
+      if (
+        departure?.date &&
+        departure?.time &&
+        arrival?.date &&
+        arrival?.time
+      ) {
+        const departureDateTime = new Date(`${departure.date}T${departure.time}`);
+        const arrivalDateTime = new Date(`${arrival.date}T${arrival.time}`);
+  
+        const diffMs = arrivalDateTime - departureDateTime;
+  
+        if (!isNaN(diffMs) && diffMs >= 0) {
+          const diffMins = Math.floor(diffMs / 60000);
+          const hours = String(Math.floor(diffMins / 60)).padStart(2, '0');
+          const minutes = String(diffMins % 60).padStart(2, '0');
+          updatedForm.HOBBS = {
+            ...updatedForm.HOBBS,
+            blocktime: `${hours}:${minutes}`,
+          };
+        } else {
+          updatedForm.HOBBS = {
+            ...updatedForm.HOBBS,
+            blocktime: '',
+          };
+        }
+      }
+  
+      return updatedForm;
     });
   };
+  
+
+  // const handleChange = (e) => {
+  //   const { name, value, type, files, dataset } = e.target;
+  
+  //   setFormData((prev) => {
+  //     let updatedForm = { ...prev };
+  
+  //     // ✅ Handle file uploads
+  //     if (type === "file") {
+  //       updatedForm[name] = files[0];
+  //     }
+  
+  //     // ✅ Handle dynamic arrays
+  //     else if (dataset.arrayname) {
+  //       const arrayName = dataset.arrayname;
+  //       const index = Number(dataset.index);
+  //       const field = dataset.field;
+  //       const updatedArray = [...prev[arrayName]];
+  //       updatedArray[index][field] = value;
+  //       updatedForm[arrayName] = updatedArray;
+  //     }
+  
+  //     // ✅ Handle nested objects
+  //     else if (name.includes(".")) {
+  //       const [main, sub] = name.split(".");
+  //       updatedForm[main] = { ...updatedForm[main], [sub]: value };
+  //     }
+  
+  //     // ✅ Handle normal fields
+  //     else {
+  //       updatedForm[name] = value;
+  //     }
+  
+  //     // ✅ Block Time Calculation
+  //     const { departure, arrival } = updatedForm;
+  //     if (
+  //       departure?.date &&
+  //       departure?.time &&
+  //       arrival?.date &&
+  //       arrival?.time
+  //     ) {
+  //       const departureDateTime = new Date(`${departure.date}T${departure.time}`);
+  //       const arrivalDateTime = new Date(`${arrival.date}T${arrival.time}`);
+  
+  //       const diffMs = arrivalDateTime - departureDateTime;
+  
+  //       if (!isNaN(diffMs) && diffMs >= 0) {
+  //         const diffMins = Math.floor(diffMs / 60000);
+  //         const hours = String(Math.floor(diffMins / 60)).padStart(2, '0');
+  //         const minutes = String(diffMins % 60).padStart(2, '0');
+  //         updatedForm.HOBBS = {
+  //           ...updatedForm.HOBBS,
+  //           blocktime: `${hours}:${minutes}`,
+  //         };
+  //       } else {
+  //         updatedForm.HOBBS = {
+  //           ...updatedForm.HOBBS,
+  //           blocktime: '',
+  //         };
+  //       }
+  //     }
+  
+  //     return updatedForm;
+  //   });
+  // };
+  
 
 
   const handleSubmit = async (e) => {
@@ -201,12 +334,13 @@ const FlightLogForm = () => {
                             <input type="text" name='copilot' className='w-100 input-border'  value={formData.copilot} onChange={handleChange}/>
                         </Form.Group>
                         <Form.Group className='mt-2 d-flex'>
-                          <select className="w-100 input-border" name="classification"  value={formData.classification} onChange={handleChange}>
+                          <input type="text" name='classification' className='w-100 input-border'  value={formData.classification} onChange={handleChange}/>
+                          {/* <select className="w-100 input-border" name="classification"  value={formData.classification} onChange={handleChange}>
                           <option selected>Select...</option>
                           <option value="1">One</option>
                           <option value="2">Two</option>
                           <option value="3">Three</option>
-                          </select>
+                          </select> */}
                         </Form.Group>
                       </div>
                     </div>

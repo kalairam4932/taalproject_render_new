@@ -37,7 +37,7 @@ const Updateairframe = () => {
       const {data:ATAChapter,isLoading} = useQuery({
         queryKey :["ATAChapterkey"],
         queryFn : async() =>{
-          const response = await axios.get("https://taal.onrender.com/api/aircraft/getata");
+          const response = await axios.get(`${base_url}/api/aircraft/getata`);
           return response.data
 
         }
@@ -48,7 +48,7 @@ const Updateairframe = () => {
       const {data:Manufacturerdata,isLoading:loading} = useQuery({
         queryKey :["Manufacturerdatakey"],
         queryFn : async() =>{
-          const response = await axios.get("https://taal.onrender.com/api/aircraft/getManufacturedata");
+          const response = await axios.get(`${base_url}/api/aircraft/getManufacturedata`);
           return response.data
 
         }
@@ -59,7 +59,7 @@ const Updateairframe = () => {
       const {data:Modeldata,isLoading:loadingmodel} = useQuery({
         queryKey :["Modeldatakey"],
         queryFn : async() =>{
-          const response = await axios.get("https://taal.onrender.com/api/aircraft/getmodelname");
+          const response = await axios.get(`${base_url}/api/aircraft/getmodelname`);
           return response.data
 
         }

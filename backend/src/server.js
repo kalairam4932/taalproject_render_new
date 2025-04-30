@@ -34,7 +34,6 @@ app.use('/api/Engine',ENGINEROUTER)
 app.use('/api/master/',othermaster)
 
 if(process.env.NODE_ENV === "Production"){
-    console.log("hai")
     app.use(express.static(path.join(__dirname,"/frontend/build")))
 }
 

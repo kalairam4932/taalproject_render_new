@@ -1,10 +1,11 @@
 import express from 'express';
-import {postaircraftdata,getpostaircraftdata,Manufacturedata,getManufacturedata,postATA,getata,postprimarymodel,modeldatapost,postairframe,getprimary,getmodelname,getairframe,getmodeldata,updatemodelname,dldmodelname,getairframedata,updateairframe,dldairframe,delata,delprimary,ataupdateid,updateata,getprimaryid,updateprimary,postlincense,postcity,getcity,postplaces,getlicences,getplaces,dldlicences,getidlicences,updatelicences,dldManufacturedata,deleteplaces,deletecity,getmanufacture,updatemanufacture,updateplaces,getplacesdata,updatecitydata,getcitydata} from '../controller/aircraft_form_controller.js'
+import {postaircraftdata,getpostaircraftdata,Manufacturedata,getManufacturedata,postATA,getata,postprimarymodel,modeldatapost,postairframe,getprimary,getmodelname,getairframe,getmodeldata,updatemodelname,dldmodelname,getairframedata,updateairframe,dldairframe,delata,delprimary,ataupdateid,updateata,getprimaryid,updateprimary,postlincense,postcity,getcity,postplaces,getlicences,getplaces,dldlicences,getidlicences,updatelicences,dldManufacturedata,deleteplaces,deletecity,getmanufacture,updatemanufacture,updateplaces,getplacesdata,updatecitydata,getcitydata,dldaircraftdata,getaircraftdata} from '../controller/aircraft_form_controller.js'
 const router = express.Router();
 
 router.post('/postaircraftdata',postaircraftdata)
-
 router.get('/',getpostaircraftdata)
+router.delete('/dldaircraftdata/:id',dldaircraftdata)
+router.get('/getaircraftdata/:id',getaircraftdata)
 
 router.get('/getata',getata)
 router.post('/postATA',postATA)
@@ -47,8 +48,6 @@ router.get('/getprimaryid/:id',getprimaryid)
  
 //updateprimary
 router.put('/updateprimary/:id',updateprimary)
-
-//  
 
 
 
