@@ -3,6 +3,7 @@ import "./flightstyle.css";
 import { useNavigate , useParams } from "react-router-dom";
 import { Form } from "react-bootstrap";
 import axios from "axios";
+import { useMutation,useQuery,useQueryClient} from "@tanstack/react-query";
 import { Link } from "react-router-dom";
 import { base_url } from "../../../../constant/url";
 
@@ -20,6 +21,8 @@ const FlightLogForm = () => {
     flightno: "",  // Convert to Number before saving
     pilotcmt: "",
     copilot: "",
+    FinalHrs: "",
+    TotalLandings : "",
     // attachfiles: ["", ""],  // Use array instead of attachfile1, attachfile2
     classification: "",
     departure: { place: "", date: "", time: "" },  // Time → time
@@ -63,7 +66,7 @@ const FlightLogForm = () => {
     // fileattachments: [],  // Matches Mongoose schema
   });
 
-  // ✅ Fetch existing data if editing (ID exists)
+  
   useEffect(() => {
     if (id) {
         axios.get(`${base_url}/api/flightlog/Editflightlogs/${id}`)
@@ -76,17 +79,17 @@ const FlightLogForm = () => {
   }, [id]);
 
 
-  // 🔥 Optimized handleChange function
+  
   const handleChange = (e) => {
     const { name, value, type, files, dataset } = e.target;
 
     setFormData((prev) => {
-      // ✅ Handle file uploads
+     
       if (type === "file") {
         return { ...prev, [name]: files[0] };
       }
 
-      // ✅ Handle dynamic arrays
+      
       if (dataset.arrayname) {
         const arrayName = dataset.arrayname;
         const index = Number(dataset.index);
@@ -96,16 +99,89 @@ const FlightLogForm = () => {
         return { ...prev, [arrayName]: updatedArray };
       }
 
-      // ✅ Handle nested objects
+    
       if (name.includes(".")) {
         const [main, sub] = name.split(".");
         return { ...prev, [main]: { ...prev[main], [sub]: value } };
       }
 
-      // ✅ Handle normal fields
       return { ...prev, [name]: value };
     });
   };
+            // kalairam works 
+            const { data: getflightdata, isLoading:loading, isError } = useQuery({
+                queryKey: ["getflightdatalogkey"],
+                queryFn: async () => {
+                  try {
+                    const res = await fetch(`${base_url}/api/flightlog/Getflightlogs`, {
+                      method: "GET",
+                      credentials: "include",
+                      headers: {
+                        "Content-Type": "application/json",
+                      },
+                    });
+            
+                    if (!res.ok) throw new Error("Failed to fetch data");
+                    return res.json();
+                  } catch (error) {
+                    console.log(`Error message: ${error.message}`);
+                    throw error;
+                  }
+                },
+              });
+
+
+              useEffect(() => {
+                if (getflightdata) {
+                  // Extract landing values
+                  const landings = getflightdata.flatMap(item =>
+                    item.airframeperiod?.map(period => Number(period.landing) || 0) || []
+                  );
+                  const totalLanding = landings.reduce((acc, curr) => acc + curr, 0); // Sum of landings
+                  
+                  const totalMinutes = getflightdata.reduce((acc, item) => {
+                    const time = item.HOBBS?.airborntime || "00:00";
+                    console.log(time);
+                    
+                    const [h, m] = time.split(":").map(Number);
+                    return acc + (h * 60 + m);
+                  }, 0);
+                  
+            
+                  const decimalHours = (totalMinutes / 60).toFixed(2); 
+                  console.log(decimalHours + "time calculation");
+                  
+                  
+
+
+
+                  // Update formData with total landings
+                  setFormData(prev => ({
+                    ...prev,
+                    TotalLandings: totalLanding,
+                    FinalHrs:decimalHours,
+                   
+                  }));
+                  }
+
+
+              }, [getflightdata]);
+                    const {data:Modeldata,isLoading:loadingmodel} = useQuery({
+                      queryKey :["Modeldatakey"],
+                      queryFn : async() =>{
+                        const response = await axios.get(`${base_url}/api/aircraft/getmodelname`);
+                        return response.data
+              
+                      }
+              
+              
+                    });
+
+
+
+
+
+
 
 
   const handleSubmit = async (e) => {
@@ -114,10 +190,10 @@ const FlightLogForm = () => {
       let response;
   
       if (id) {
-        response = await axios.put(`${base_url}/api/flightlog/Updateflightlogs/${id}, formData`); // Corrected template literals
+        response = await axios.put(`${base_url}/api/flightlog/Updateflightlogs/${id}`, formData); // Corrected template literals
         alert("Flight Log Details updated successfully!");
       } else {
-        response = await axios.post(`${base_url}/api/flightlog/postflightlogs, formData`);
+        response = await axios.post(`${base_url}/api/flightlog/postflightlogs`, formData);
         alert("Flight Log Details submitted successfully!");
       }
   
@@ -270,19 +346,22 @@ const handleChange2 = (event) => {
                     <div className='row'>
                       <div className='col-xs-12 col-sm-12 col-md-12 col-lg-3 col-xl-3 col-xxl-3'>
                         <Form.Group >
-                          <label className='mt-3 fw-bold'>Date</label>
+                          <label className='mt-2 fw-bold'>Date</label>
                         </Form.Group>
                         <Form.Group >
-                          <label className='mt-3 fw-bold'>Pilot in Command</label>
+                          <label className='mt-2 fw-bold'>Pilot in Cmd</label>
                         </Form.Group>
                         <Form.Group >
-                          <label className='mt-3 fw-bold'>Attach File</label>
+                          <label className='mt-2 fw-bold'>Attach File</label>
+                        </Form.Group>
+                        <Form.Group >
+                          <label className='mt-2 fw-bold'>Final Hrs</label>
                         </Form.Group>
                       </div>
                       <div className='col-xs-12 col-sm-12 col-md-12 col-lg-9 col-xl-9 col-xxl-9'>
                         <Form.Group className='mt-1 d-flex'>
                           <input type="date" name='date' className='w-100 ' value={formData.date} onChange={handleChange} />
-                          <label className='mx-1 px-2 fw-bold'>Log No</label>
+                          <label className='mx-1 px-2 fw-bold'>LogNo</label>
                           <input type="text" name='Logno.first' className='w-100 input-border' value={formData.Logno.first} onChange={handleChange} />
                           <input type="text" name='Logno.second' className='w-100 mx-1 input-border' value={formData.Logno.second} onChange={handleChange} />
                         </Form.Group>
@@ -293,6 +372,9 @@ const handleChange2 = (event) => {
                             <input type="file" name="attachfiles" className="w-100" />
                             {/* onChange={handleChange} */}
                         </Form.Group>
+                        <Form.Group className='mt-2'>
+                            <input type="text" name='FinalHrs' className='w-100 input-border' value={formData.FinalHrs} onChange={handleChange}/>
+                        </Form.Group>
                       </div>
                     </div>
                   </div>
@@ -300,31 +382,35 @@ const handleChange2 = (event) => {
                   <div className='row'>
                       <div className='col-xs-12 col-sm-12 col-md-12 col-lg-3 col-xl-3 col-xxl-3'>
                         <Form.Group >
-                          <label className='mt-3 fw-bold'>Page No</label>
+                          <label className='mt-2 fw-bold'>Page No</label>
                         </Form.Group>
                         <Form.Group >
-                          <label className='my-3 fw-bold'>Co Pilot</label>
+                          <label className='my-2 fw-bold'>Co Pilot</label>
                         </Form.Group>
                         <Form.Group >
-                          <label className='my-1 fw-bold'>Classification</label>
+                          <label className='my-2 fw-bold'>Classification</label>
+                        </Form.Group>
+                        
+                        <Form.Group >
+                          <label className='my-2 fw-bold'>Total Landings</label>
                         </Form.Group>
                       </div>
                       <div className='col-xs-9 col-sm-9 col-md-9 col-lg-9 col-xl-9 col-xxl-9'>
                         <Form.Group className='mt-2 d-flex'>
                           <input type="number" name='pageno' className='w-100 input-border' value={formData.pageno} onChange={handleChange} />
-                          <label className='mx-1 px-1 fw-bold'>Flight No</label>
+                          <label className='mx-1 px-1 fw-bold'>FlightNo</label>
                           <input type="number" name='flightno' className='w-100 input-border' value={formData.flightno}  onChange={handleChange}/>
                         </Form.Group>
                         <Form.Group className='mt-2'>
                             <input type="text" name='copilot' className='w-100 input-border'  value={formData.copilot} onChange={handleChange}/>
                         </Form.Group>
                         <Form.Group className='mt-2 d-flex'>
-                          <select className="w-100 input-border" name="classification"  value={formData.classification} onChange={handleChange}>
-                          <option selected>Select...</option>
-                          <option value="1">One</option>
-                          <option value="2">Two</option>
-                          <option value="3">Three</option>
-                          </select>
+                          <input type="text" name='classification' className='w-100 input-border'  value={formData.classification} onChange={handleChange}/>
+                          
+                        </Form.Group>
+                        <Form.Group className='mt-2 d-flex'>
+                          <input type="text" name='TotalLandings' className='w-100 input-border'  value={formData.TotalLandings} onChange={handleChange}/>
+                          
                         </Form.Group>
                       </div>
                     </div>
@@ -363,31 +449,31 @@ const handleChange2 = (event) => {
                     <h6 className='text-light fw-bold mx-2'>Aircraft Flying Hours as per flight Log Book or HOBBS</h6>
                     <div className='col-xs-12 col-sm-12 col-md-12 col-lg-3 col-xl-3 col-xxl-3'>
                       <Form.Group className=' d-flex align-items-center'>
-                        <label className='mx-1 px-2 fw-bold text-light'>Block time</label>
+                        <label className='mx-1 px-2 fw-bold text-light'>BlockTime</label>
                         <input type="text" name='HOBBS.blocktime' className='w-100 input-border'value={formData.HOBBS.blocktime} onChange={handleChange} />
                       </Form.Group>
                     </div>
                     <div className='col-xs-12 col-sm-12 col-md-12 col-lg-3 col-xl-3 col-xxl-3'>
                       <Form.Group className='d-flex align-items-center'>
-                        <label className='mx-1 px-2 fw-bold text-light'>Airborne time</label>
+                        <label className='mx-1 px-2 fw-bold text-light'>AirborneTime</label>
                         <input type="text" name='HOBBS.airborntime' className='w-100 input-border' value={formData.HOBBS.airborntime} onChange={handleChange2} />
                       </Form.Group>
                     </div>
                     <div className='col-xs-12 col-sm-12 col-md-12 col-lg-3 col-xl-3 col-xxl-3'>
                       <Form.Group className='d-flex align-items-center'>
-                        <label className='mx-1 px-2 fw-bold text-light'>ground Run time</label>
+                        <label className='mx-1 px-2 fw-bold text-light'>groundRunTime</label>
                         <input type="text" name='HOBBS.groundruntime1' className='w-100 input-border'value={formData.HOBBS.groundruntime1} onChange={handleChange}  />%
                       </Form.Group>
                     </div>
                     <div className='col-xs-12 col-sm-12 col-md-12 col-lg-3 col-xl-3 col-xxl-3'>
                       <Form.Group className='d-flex align-items-center'>
-                          <label className='mx-1 px-2 fw-bold text-light'>Ground Run time</label>
+                          <label className='mx-1 px-2 fw-bold text-light'>%GroundRunTime</label>
                           <input type="text" name='HOBBS.groundruntime2' className='w-100 input-border'value={formData.HOBBS.groundruntime2} onChange={handleChange} />
                         </Form.Group>
                     </div>
                     <div className='col-xs-12 col-sm-12 col-md-12 col-lg-3 col-xl-3 col-xxl-3'>
-                      <Form.Group className='d-flex align-items-center'>
-                        <label className='mx-1 px-2 fw-bold text-light'>Total time</label>
+                      <Form.Group className='d-flex align-items-center mt-2'>
+                        <label className='mx-1 px-2 fw-bold text-light'>TotalTime</label>
                         <input type="text" name='HOBBS.totaltime' className='w-100 input-border'value={formData.HOBBS.totaltime} onChange={handleChange}  />
                       </Form.Group>
                     </div>
@@ -408,12 +494,34 @@ const handleChange2 = (event) => {
                             </tr>
                         </thead>
                         <tbody>
-                            <td><input type='text' name='airframeperiod.model' data-arrayname="airframeperiod" data-index={0} data-field="model" className='w-100 input-border' value={formData.airframeperiod[0]?.model || ""} onChange={handleChange}/></td>
-                            <td><input type='text' name='airframeperiod.serialno' data-arrayname="airframeperiod" data-index={0} data-field="serialno" className='w-100 input-border' value={formData.airframeperiod[0]?.serialno || ""} onChange={handleChange}/></td>
+                            {/* <td><input type='text' name='airframeperiod.model' data-arrayname="airframeperiod" data-index={0} data-field="model" className='w-100 input-border' value={formData.airframeperiod[0]?.model || ""} onChange={handleChange}/></td> */}
+                            <td>
+                            <select className="w-100 input-border " id="" name="airframeperiod.model" onChange={handleChange}>
+                        <option value='' disabled selected>Select...</option>
+                          {loadingmodel ? (<p>Loading.....</p>):(Modeldata?.length>0 ? (Modeldata.map((data)=>(
+                                  <option>
+                                    {data.ModelName}
+                                  </option>
+                               ))):(<></>))
+                          }
+                        </select>
+                            </td>
+                            {/* <td><input type='text' name='airframeperiod.serialno' data-arrayname="airframeperiod" data-index={0} data-field="serialno" className='w-100 input-border' value={formData.airframeperiod[0]?.serialno || ""} onChange={handleChange}/></td> */}
+
+                            <td>
+                            <select className="w-100 input-border " id="" name="airframeperiod.serialno" onChange={handleChange}>
+                        <option value='' disabled selected>Select...</option>
+             
+                                  <option>
+                                  525A-0470	
+                                  </option>
+                       
+                        </select>
+                            </td>
                             <td><input type='text' name='airframeperiod.hours' className='w-100 input-border' data-arrayname="airframeperiod" data-index={0} data-field="hours" value={formData.airframeperiod[0]?.hours || ""} onChange={handleChange}/></td>
                             <td><input type='text' name='airframeperiod.finalhours' className='w-100 input-border' data-arrayname="airframeperiod" data-index={0} data-field="finalhours" value={formData.airframeperiod[0]?.finalhours || ""} onChange={handleChange}/></td>
                             <td><input type='text' name='airframeperiod.landing' className='w-100 input-border' data-arrayname="airframeperiod" data-index={0} data-field="landing" value={formData.airframeperiod[0]?.landing || ""} onChange={handleChange} /></td>
-                            <td><input type='text' name='airframeperiod.finallanding' className='w-100 input-border' data-arrayname="airframeperiod" data-index={0} data-field="finallanding" value={formData.airframeperiod[0]?.finallanding || ""} onChange={handleChange}/></td>
+                            <td><input type='text' name='airframeperiod.finallanding' className='w-100 input-border' data-arrayname="airframeperiod" data-index={0} data-field="finallanding" value={formData.TotalLandings} onChange={handleChange}/></td>
                         </tbody>
                     </table>
                 </div>
@@ -432,12 +540,34 @@ const handleChange2 = (event) => {
                             </tr>
                         </thead>
                         <tbody>
-                            <td><input type='text' name='engineperiod.model' data-arrayname="engineperiod" data-index={0} data-field="model" className='w-100 input-border' value={formData.engineperiod[0]?.model || ""} onChange={handleChange} /></td>
-                            <td><input type='text' name='engineperiod.serialno' data-arrayname="engineperiod" data-index={0} data-field="serialno" className='w-100 input-border' value={formData.engineperiod[0]?.serialno || ""} onChange={handleChange} /></td>
+                            {/* <td><input type='text' name='engineperiod.model' data-arrayname="engineperiod" data-index={0} data-field="model" className='w-100 input-border' value={formData.engineperiod[0]?.model || ""} onChange={handleChange} /></td> */}
+
+                            <td>
+                              <select className="w-100 input-border " id="engineperiod.model" name="engineperiod.model" value={formData.engineperiod[0]?.model || ""} onChange={handleChange}>
+                          <option value='' disabled selected>Select...</option>
+                            {loadingmodel ? (<p>Loading.....</p>):(Modeldata?.length>0 ? (Modeldata.map((data)=>(
+                                    <option>
+                                      {data.ModelName}
+                                    </option>
+                                ))):(<></>))
+                            }
+                          </select>
+                            </td>
+                            {/* <td><input type='text' name='engineperiod.serialno' data-arrayname="engineperiod" data-index={0} data-field="serialno" className='w-100 input-border' value={formData.engineperiod[0]?.serialno || ""} onChange={handleChange} /></td> */}
+                            <td>
+                            <select className="w-100 input-border " name="engineperiod.serialno" onChange={handleChange}>
+                        <option value='' disabled selected>Select...</option>
+             
+                                  <option>
+                                  525A-0470	
+                                  </option>
+                       
+                        </select>
+                            </td>
                             <td><input type='text' name='engineperiod.hours' data-arrayname="engineperiod" data-index={0} data-field="hours" className='w-100 input-border' value={formData.engineperiod[0]?.hours || ""} onChange={handleChange} /></td>
                             <td><input type='text' name='engineperiod.finalhours' data-arrayname="engineperiod" data-index={0} data-field="finalhours" className='w-100 input-border' value={formData.engineperiod[0]?.finalhours || ""} onChange={handleChange} /></td>
                             <td><input type='text' name='engineperiod.cycle' data-arrayname="engineperiod" data-index={0} data-field="cycle" className='w-100 input-border' value={formData.engineperiod[0]?.cycle || ""} onChange={handleChange} /></td>
-                            <td><input type='text' name='engineperiod.finalcycles' data-arrayname="engineperiod" data-index={0} data-field="finalcycles" className='w-100 input-border' value={formData.engineperiod[0]?.finalcycles || ""} onChange={handleChange} /></td>
+                            <td><input type='text' name='engineperiod.finalcycles' data-arrayname="engineperiod" data-index={0} data-field="finalcycles" className='w-100 input-border' value={formData.TotalLandings} onChange={handleChange} /></td>
                         </tbody>
                     </table>
                 </div>
@@ -454,10 +584,33 @@ const handleChange2 = (event) => {
                             </tr>
                         </thead>
                         <tbody>
-                            <td><input type='text' name='airconditionperiod.model' data-arrayname="airconditionperiod" data-index={0} data-field="model" className='w-100 input-border' value={formData.airconditionperiod[0]?.model || ""} onChange={handleChange} /></td>
-                            <td><input type='text' name='airconditionperiod.serialno' data-arrayname="airconditionperiod" data-index={0} data-field="serialno" className='w-100 input-border' value={formData.airconditionperiod[0]?.serialno || ""} onChange={handleChange} /></td>
+                            {/* <td><input type='text' name='airconditionperiod.model' data-arrayname="airconditionperiod" data-index={0} data-field="model" className='w-100 input-border' value={formData.airconditionperiod[0]?.model || ""} onChange={handleChange} /></td> */}
+                            <td>
+                              <select className="w-100 input-border "  name="airconditionperiod.model" value={formData.airconditionperiod[0]?.model || ""} onChange={handleChange}>
+                          <option value='' disabled selected>Select...</option>
+                            {loadingmodel ? (<p>Loading.....</p>):(Modeldata?.length>0 ? (Modeldata.map((data)=>(
+                                    <option>
+                                      {data.ModelName}
+                                    </option>
+                                ))):(<></>))
+                            }
+                          </select>
+                            </td>
+                            
+                            {/* <td><input type='text' name='airconditionperiod.serialno' data-arrayname="airconditionperiod" data-index={0} data-field="serialno" className='w-100 input-border' value={formData.airconditionperiod[0]?.serialno || ""} onChange={handleChange} /></td> */}
+
+                            <td>
+                            <select className="w-100 input-border " name="airconditionperiod.serialno" onChange={handleChange}>
+                        <option value='' disabled selected>Select...</option>
+             
+                                  <option>
+                                  525A-0470	
+                                  </option>
+                       
+                        </select>
+                            </td>
                             <td><input type='text' name='airconditionperiod.hours' data-arrayname="airconditionperiod" data-index={0} data-field="hours" className='w-100 input-border' value={formData.airconditionperiod[0]?.hours || ""} onChange={handleChange} /></td>
-                            <td><input type='text' name='airconditionperiod.finalhours' data-arrayname="airconditionperiod" data-index={0} data-field="finalhours" className='w-100 input-border' value={formData.airconditionperiod[0]?.finalhours || ""} onChange={handleChange} /></td>
+                            <td><input type='text' name='airconditionperiod.finalhours' data-arrayname="airconditionperiod" data-index={0} data-field="finalhours" className='w-100 input-border' value={formData.FinalHrs}onChange={handleChange} /></td>
                         </tbody>
                     </table>
                 </div>
