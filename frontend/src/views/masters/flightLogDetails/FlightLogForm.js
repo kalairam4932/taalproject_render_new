@@ -12,7 +12,6 @@ const FlightLogForm = () => {
 
   const navigate = useNavigate();
   const { id } = useParams(); 
-  console.log(id);
 
   const [formData, setFormData] = useState({
     date: "",  // Matches Mongoose data
@@ -148,8 +147,12 @@ const FlightLogForm = () => {
                   }, 0);
                   
             
-                  const decimalHours = (totalMinutes / 60).toFixed(2); 
-                  console.log(decimalHours + "time calculation");
+                  const hours = Math.floor(totalMinutes / 60);
+                  const minutes = totalMinutes % 60;
+                  const finalTime = `${String(hours).padStart(2, '0')}:${String(minutes).padStart(2, '0')}`;
+
+
+                 
                   
                   
 
@@ -159,13 +162,14 @@ const FlightLogForm = () => {
                   setFormData(prev => ({
                     ...prev,
                     TotalLandings: totalLanding,
-                    FinalHrs:decimalHours,
+                    FinalHrs:finalTime,
                    
                   }));
                   }
 
 
               }, [getflightdata]);
+
                     const {data:Modeldata,isLoading:loadingmodel} = useQuery({
                       queryKey :["Modeldatakey"],
                       queryFn : async() =>{
@@ -320,6 +324,71 @@ const handleChange2 = (event) => {
   });
 };
 
+const handleChangelanding = (event)=>{
+    const {name,value} = event.target
+    
+    
+    
+    const totalvalue = Number(value) + Number(formData.TotalLandings)
+    console.log(totalvalue);
+   
+    setFormData(prev => ({
+      ...prev,
+      airframeperiod: prev.airframeperiod.map((item, index) => 
+        index === 0
+          ? { ...item, finallanding: totalvalue }
+          : item
+      )
+    }));
+    
+
+
+}
+const handleChangefinalcycles = (event)=>{
+    const{value} = event.target
+    console.log(value);
+    const totalvalue = Number(value) + Number(formData.TotalLandings)
+    
+    
+    setFormData(prev => ({
+      ...prev,
+      engineperiod: prev.engineperiod.map((item, index) => 
+        index === 0
+          ? { ...item, finalcycles: totalvalue }
+          : item
+      )
+    }));
+}
+
+function addTimes(time1, time2) {
+  const [h1, m1] = time1.split(":").map(Number);
+  const [h2, m2] = time2.split(":").map(Number);
+
+  let totalMinutes = m1 + m2;
+  let totalHours = h1 + h2 + Math.floor(totalMinutes / 60);
+  totalMinutes = totalMinutes % 60;
+
+  // Format with leading zeros
+  const hoursStr = String(totalHours).padStart(2, '0');
+  const minutesStr = String(totalMinutes).padStart(2, '0');
+
+  return `${hoursStr}:${minutesStr}`;
+} 
+const handleChangeairbonetime = (event)=>{
+  const{value} = event.target
+  const time = addTimes(value, formData.FinalHrs)
+  
+  setFormData(prev => ({
+    ...prev,
+    airconditionperiod: prev.airconditionperiod.map((item, index) => 
+      index === 0
+        ? { ...item, finalhours: time }
+        : item
+    )
+  }));
+  
+
+}
   
   
   const handleCombinedChange = (event) => {
@@ -456,7 +525,7 @@ const handleChange2 = (event) => {
                     <div className='col-xs-12 col-sm-12 col-md-12 col-lg-3 col-xl-3 col-xxl-3'>
                       <Form.Group className='d-flex align-items-center'>
                         <label className='mx-1 px-2 fw-bold text-light'>AirborneTime</label>
-                        <input type="text" name='HOBBS.airborntime' className='w-100 input-border' value={formData.HOBBS.airborntime} onChange={handleChange2} />
+                        <input type="time" name='HOBBS.airborntime' className='w-100 input-border' onChange={handleChangeairbonetime} />
                       </Form.Group>
                     </div>
                     <div className='col-xs-12 col-sm-12 col-md-12 col-lg-3 col-xl-3 col-xxl-3'>
@@ -520,8 +589,8 @@ const handleChange2 = (event) => {
                             </td>
                             <td><input type='text' name='airframeperiod.hours' className='w-100 input-border' data-arrayname="airframeperiod" data-index={0} data-field="hours" value={formData.airframeperiod[0]?.hours || ""} onChange={handleChange}/></td>
                             <td><input type='text' name='airframeperiod.finalhours' className='w-100 input-border' data-arrayname="airframeperiod" data-index={0} data-field="finalhours" value={formData.airframeperiod[0]?.finalhours || ""} onChange={handleChange}/></td>
-                            <td><input type='text' name='airframeperiod.landing' className='w-100 input-border' data-arrayname="airframeperiod" data-index={0} data-field="landing" value={formData.airframeperiod[0]?.landing || ""} onChange={handleChange} /></td>
-                            <td><input type='text' name='airframeperiod.finallanding' className='w-100 input-border' data-arrayname="airframeperiod" data-index={0} data-field="finallanding" value={formData.TotalLandings} onChange={handleChange}/></td>
+                            <td><input type='text' name='airframeperiod.landing' className='w-100 input-border' data-arrayname="airframeperiod" data-index={0} data-field="landing"  onChange={handleChangelanding} /></td>
+                            <td><input type='text' name='airframeperiod.finallanding' className='w-100 input-border' data-arrayname="airframeperiod" data-index={0} data-field="finallanding" value={formData.airframeperiod[0].finallanding} onChange={handleChange}/></td>
                         </tbody>
                     </table>
                 </div>
@@ -566,8 +635,8 @@ const handleChange2 = (event) => {
                             </td>
                             <td><input type='text' name='engineperiod.hours' data-arrayname="engineperiod" data-index={0} data-field="hours" className='w-100 input-border' value={formData.engineperiod[0]?.hours || ""} onChange={handleChange} /></td>
                             <td><input type='text' name='engineperiod.finalhours' data-arrayname="engineperiod" data-index={0} data-field="finalhours" className='w-100 input-border' value={formData.engineperiod[0]?.finalhours || ""} onChange={handleChange} /></td>
-                            <td><input type='text' name='engineperiod.cycle' data-arrayname="engineperiod" data-index={0} data-field="cycle" className='w-100 input-border' value={formData.engineperiod[0]?.cycle || ""} onChange={handleChange} /></td>
-                            <td><input type='text' name='engineperiod.finalcycles' data-arrayname="engineperiod" data-index={0} data-field="finalcycles" className='w-100 input-border' value={formData.TotalLandings} onChange={handleChange} /></td>
+                            <td><input type='text' name='engineperiod.cycle' data-arrayname="engineperiod" data-index={0} data-field="cycle" className='w-100 input-border' onChange={handleChangefinalcycles} /></td>
+                            <td><input type='text' name='engineperiod.finalcycles' data-arrayname="engineperiod" data-index={0} data-field="finalcycles" className='w-100 input-border' value={formData.engineperiod[0]?.finalcycles || ""} onChange={handleChange} /></td>
                         </tbody>
                     </table>
                 </div>
@@ -610,7 +679,7 @@ const handleChange2 = (event) => {
                         </select>
                             </td>
                             <td><input type='text' name='airconditionperiod.hours' data-arrayname="airconditionperiod" data-index={0} data-field="hours" className='w-100 input-border' value={formData.airconditionperiod[0]?.hours || ""} onChange={handleChange} /></td>
-                            <td><input type='text' name='airconditionperiod.finalhours' data-arrayname="airconditionperiod" data-index={0} data-field="finalhours" className='w-100 input-border' value={formData.FinalHrs}onChange={handleChange} /></td>
+                            <td><input type='text' name='airconditionperiod.finalhours' data-arrayname="airconditionperiod" data-index={0} data-field="finalhours" className='w-100 input-border' value={formData.airconditionperiod[0]?.finalhours || ""}onChange={handleChange} /></td>
                         </tbody>
                     </table>
                 </div>

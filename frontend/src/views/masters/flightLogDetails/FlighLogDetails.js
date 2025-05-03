@@ -125,7 +125,7 @@ const FlightLogDetails = () => {
                     </div>
                     <div className='col-xs-12 col-sm-12 col-md-12 col-lg-1 col-xl-1 col-xxl-1'>
                         <Form.Group >
-                            <label className='mt-3 fw-bold'>Start Date</label>
+                            <label className='mt-3 fw-bold'>StartDate</label>
                         </Form.Group>
                     </div>
                     <div className='col-xs-12 col-sm-12 col-md-12 col-lg-2 col-xl-2 col-xxl-2'>
@@ -135,7 +135,7 @@ const FlightLogDetails = () => {
                     </div>
                     <div className='col-xs-12 col-sm-12 col-md-12 col-lg-1 col-xl-1 col-xxl-1'>
                         <Form.Group >
-                            <label className='mt-3 fw-bold'>End Date</label>
+                            <label className='mt-3 fw-bold'>EndDate</label>
                         </Form.Group>
                     </div>
                     <div className='col-xs-12 col-sm-12 col-md-12 col-lg-2 col-xl-2 col-xxl-2'>
