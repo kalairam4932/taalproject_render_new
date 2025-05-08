@@ -86,6 +86,11 @@ const LHENGINE = React.lazy(()=> import('./views/LH/LHform'))
 const LHTABLE  = React.lazy(()=>import('./views/LH/LHtable'))
 const LHUPDATE  = React.lazy(()=>import('./views/LH/LHupdate'))
 
+//Engineering Order
+const FormEngOrder = React.lazy(()=> import('./views/masters/EngineeringOrder/FormEngOrder'))
+
+//parts 
+const Partsform = React.lazy(() => import('./views/parts/Partsform'))
 
 
 // MASTER PAGES 
@@ -224,6 +229,12 @@ const routes = [
   //ads
   {path : '/ADSFORM',name:ADSFORM, element :ADSFORM },
   {path : '/ADSTABLE',name:ADSTABLE, element :ADSTABLE },
+
+  //Engineering Orderr 
+  {path : '/EngineeringOrder', name:FormEngOrder , element :FormEngOrder}
+
+  //parts 
+  ,{path : '/Partsform', name:Partsform , element :Partsform}
 
 
   

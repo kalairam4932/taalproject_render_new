@@ -1,0 +1,35 @@
+.title {
+ 
+  font-weight: bold;
+
+  
+}
+
+.text{
+  margin-left: 10%;
+  background-color: #f3f4f7;
+}
+.input {
+  width: 100%; /* Ensures proper width */
+  padding: 0.5px;
+  border: 1px solid #ccc; /* Default border */
+  border-radius: 7px;
+  outline: none;
+  transition: border-color 0.5s ease-in-out, box-shadow 0.5s ease-in-out;
+  max-width: 250px;
+  text-indent: 1px;
+  height: 25px;
+}
+
+.input:focus,
+.input:hover {
+  border-color: #2d79f3; 
+  
+}
+
+.boxborder{
+  border-style: solid;
+  border-color: black;
+  border-width: 3px;
+  border-radius:15px;
+}

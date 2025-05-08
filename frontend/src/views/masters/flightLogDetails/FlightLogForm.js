@@ -336,7 +336,9 @@ const handleChangelanding = (event)=>{
       ...prev,
       airframeperiod: prev.airframeperiod.map((item, index) => 
         index === 0
-          ? { ...item, finallanding: totalvalue }
+          ? { ...item, 
+            landing : value,
+            finallanding: totalvalue }
           : item
       )
     }));
@@ -589,7 +591,9 @@ const handleChangeairbonetime = (event)=>{
                             </td>
                             <td><input type='text' name='airframeperiod.hours' className='w-100 input-border' data-arrayname="airframeperiod" data-index={0} data-field="hours" value={formData.airframeperiod[0]?.hours || ""} onChange={handleChange}/></td>
                             <td><input type='text' name='airframeperiod.finalhours' className='w-100 input-border' data-arrayname="airframeperiod" data-index={0} data-field="finalhours" value={formData.airframeperiod[0]?.finalhours || ""} onChange={handleChange}/></td>
+
                             <td><input type='text' name='airframeperiod.landing' className='w-100 input-border' data-arrayname="airframeperiod" data-index={0} data-field="landing"  onChange={handleChangelanding} /></td>
+
                             <td><input type='text' name='airframeperiod.finallanding' className='w-100 input-border' data-arrayname="airframeperiod" data-index={0} data-field="finallanding" value={formData.airframeperiod[0].finallanding} onChange={handleChange}/></td>
                         </tbody>
                     </table>

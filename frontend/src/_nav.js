@@ -479,7 +479,7 @@ const _nav = [
   {
     component: CNavItem,
     name: 'Parts',
-    to: '/Parts',
+    to: '/Partsform',
     icon: <CIcon icon={cilStream} customClassName="nav-icon" />,
   },
   {
@@ -498,6 +498,12 @@ const _nav = [
     component: CNavItem,
     name: 'MPD ',
     to: '/MPD',
+    icon: <CIcon icon={cilStream} customClassName="nav-icon" />,
+  },
+  {
+    component: CNavItem,
+    name: 'Engineering Order ',
+    to: '/EngineeringOrder',
     icon: <CIcon icon={cilStream} customClassName="nav-icon" />,
   },
 

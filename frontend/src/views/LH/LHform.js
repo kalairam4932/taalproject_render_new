@@ -226,7 +226,7 @@ const RHform = () => {
                 
                 <div className='row '>
                     <div className='col-4  d-flex justify-content-end'>
-                        <label htmlFor="    ">Installed on</label>
+                        <label htmlFor=" ">Installed on</label>
                     </div>
                     <div className='col-6 '>
                         <input type="date" className="input " id='Installedon' name='Installedon' autoComplete="off" onChange={handleChange} />
